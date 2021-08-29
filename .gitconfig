@@ -1,0 +1,5 @@
+[user]
+name = Sahn Lam
+email = slam@users.noreply.github.com
+[url "\"git@github.com:\""]
+insteadOf = \"https://github.com/\"
