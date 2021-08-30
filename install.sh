@@ -24,9 +24,23 @@ if [ ! -d "$HOME/.asdf" ]; then
 fi
 
 . $HOME/.asdf/asdf.sh
-asdf plugin add neovim
+asdf plugin add neovim || true
 asdf install neovim stable
 asdf global neovim stable
 
+if [ -n "$CODER_USERNAME" ]; then
+    if [ ! -d "$HOME/.neovim2" ]; then
+        pip install --user virtualenv
+        "$HOME/.local/bin/virtualenv" "$HOME/.neovim2"
+        "$HOME/.neovim2/bin/pip" install neovim
+    fi
+
+    if [ ! -d "$HOME/.neovim3" ]; then
+        python3.7 -m venv "$HOME/.neovim3"
+        "$HOME/.neovim3/bin/pip" install neovim
+    fi
+fi
+
 stow git
+stow nvim
 stow zsh
