@@ -77,6 +77,7 @@ case $uname in
 
         mkdir -p "$HOME/.npm-packages"
         npm config set prefix "$HOME/.npm-packages"
+    	npm install -g neovim
     fi
 
     ;;
