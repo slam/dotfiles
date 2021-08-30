@@ -117,6 +117,12 @@ alias vi=nvim
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+if [ -n "CODER_USERNAME" ]; then
+	NPM_PACKAGES="$HOME/.npm-packages"
+	export PATH="$PATH:$NPM_PACKAGES/bin"
+	export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+fi
+
 #compdef clyde
 _clyde() {
   eval $(env COMMANDLINE="${words[1,$CURRENT]}" _CLYDE_COMPLETE=complete-zsh  clyde)

@@ -39,6 +39,9 @@ if [ -n "$CODER_USERNAME" ]; then
         python3.7 -m venv "$HOME/.neovim3"
         "$HOME/.neovim3/bin/pip" install neovim
     fi
+
+    mkdir -p "$HOME/.npm-packages"
+    npm config set prefix "$HOME/.npm-packages"
 fi
 
 stow git
