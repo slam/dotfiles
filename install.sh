@@ -4,6 +4,7 @@ set -euo pipefail
 
 uname=$(uname)
 
+set -x
 case $uname in
 "Darwin")
     brew update
