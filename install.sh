@@ -7,11 +7,28 @@ uname=$(uname)
 case $uname in
 "Darwin")
     brew update
+    brew tap \
+        koekeishiya/formulae
+
     brew install \
         fasd \
         git \
+        htop \
+        jq \
         neovim \
-        stow
+        stow \
+        yabai
+
+    brew install skhd --with-logging
+
+    brew install \
+        alfred \
+        karabiner-elements \
+        resilio-sync \
+        spotify \
+        visual-studio-code \
+        whatsapp \
+        menumeters
 
     defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
     ;;
@@ -67,7 +84,9 @@ stow zsh
 
 case $uname in
 "Darwin")
+    stow karabiner
     stow kitty
+    stow yabai
     ;;
 "Linux") ;;
 
