@@ -64,3 +64,11 @@ fi
 stow git
 stow nvim
 stow zsh
+
+case $uname in
+"Darwin")
+    stow kitty
+    ;;
+"Linux") ;;
+
+esac
