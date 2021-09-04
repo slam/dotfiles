@@ -8,8 +8,8 @@ set -x
 case $uname in
 "Darwin")
     brew update
-    brew tap \
-        koekeishiya/formulae
+    brew tap homebrew/cask-fonts
+    brew tap koekeishiya/formulae
 
     brew install \
         fasd \
@@ -32,6 +32,9 @@ case $uname in
         visual-studio-code \
         whatsapp \
         menumeters
+
+    brew install \
+	font-meslo-lg-nerd-font
 
     if [ ! -d "$HOME/.neovim3" ]; then
         python3 -m venv "$HOME/.neovim3"
