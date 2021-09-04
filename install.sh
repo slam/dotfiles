@@ -13,6 +13,7 @@ case $uname in
     brew install \
         fasd \
         git \
+        git-town \
         htop \
         jq \
         neovim \
