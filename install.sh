@@ -16,6 +16,7 @@ case $uname in
         htop \
         jq \
         neovim \
+        node \
         stow \
         yabai
 
@@ -29,6 +30,12 @@ case $uname in
         visual-studio-code \
         whatsapp \
         menumeters
+
+    if [ ! -d "$HOME/.neovim3" ]; then
+        python3 -m venv "$HOME/.neovim3"
+        "$HOME/.neovim3/bin/pip" install neovim
+    fi
+    npm install -g neovim
 
     defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
     ;;
