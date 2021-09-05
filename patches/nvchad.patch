@@ -1,5 +1,5 @@
 diff --git a/lua/chadrc.lua b/lua/chadrc.lua
-index 986a835..0e13875 100644
+index 986a835..0aefefe 100644
 --- a/lua/chadrc.lua
 +++ b/lua/chadrc.lua
 @@ -8,7 +8,7 @@ M.ui = {
@@ -11,6 +11,15 @@ index 986a835..0e13875 100644
  
     -- theme toggler, toggle between two themes, see theme_toggleer mappings
     theme_toggler = {
+@@ -47,7 +47,7 @@ M.options = {
+    hidden = true,
+    ignorecase = true,
+    insert_nav = true, -- navigation in insertmode
+-   mapleader = " ",
++   mapleader = ",",
+    mouse = "a",
+    number = true,
+    -- relative numbers in normal mode tool at the bottom of options.lua
 @@ -89,7 +89,7 @@ M.plugin_status = {
     neoscroll = true, -- smooth scroll
     telescope_media = false, -- see media files in telescope picker
