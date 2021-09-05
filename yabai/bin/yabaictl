@@ -111,6 +111,8 @@ class WindowManager:
     @property
     def focused_space_num(self):
         label = self.focused_space["label"]
+        if label == "reserved":
+            return 1
         # Strip the leading 's'
         return int(label[1:])
 
@@ -142,7 +144,10 @@ class WindowManager:
 
     def label_space(self, space_index, label):
         yabai_message(
-            "space", f"{space_index}", "--label", self._space_label(label),
+            "space",
+            f"{space_index}",
+            "--label",
+            self._space_label(label),
         )
 
     def swap_context(self):
@@ -235,6 +240,7 @@ class WindowManager:
     def _space_label(self, space):
         if "s" in str(space):
             return space
+        space = int(space)
         return f"s{space}"
 
     def display_for_space(self, space):
@@ -310,7 +316,6 @@ class WindowManager:
                     yabai_message("window", operation, str(next_window))
                 yabai_message("space", "--focus", next_space.get("label"))
 
-
     def focus_window(self, direction):
         """Move focus using `yabai -m window --focus` but allow moving across displays
         when using east or west."""
@@ -346,18 +351,19 @@ class WindowManager:
         return self.find_space(space=f"s{next_space_num}")
 
     def move_space_to_display(self, space, display):
-        display_index = self.find_display(display=display)["index"]
-
         yabai_message(
-            "space", self._space_label(space), "--display", f"{display_index}",
+            "space",
+            f"{space}",
+            "--display",
+            f"{display}",
         )
 
     def move_window_to_space(self, window, space):
         yabai_message("window", str(window), "--space", self._space_label(space))
 
     def remove_unnecessary_spaces(self):
-        while self.num_spaces > self.NUM_SPACES:
-            index = self.unlabeled_spaces[0]['index']
+        while len(self.unlabeled_spaces) > 0:
+            index = self.unlabeled_spaces[0]["index"]
             yabai_message("space", str(index), "--destroy")
             self.refresh_state()
 
@@ -365,14 +371,53 @@ class WindowManager:
         if self.num_spaces < self.NUM_SPACES:
             for i in range(self.num_spaces, self.NUM_SPACES):
                 yabai_message("space", "--create")
+        self.refresh_state()
+
+        # Evenly split the spaces among the monitors
+        if self.num_displays == 1:
+            pass
+        elif self.num_displays == 2:
+            for i in range(1, self.NUM_SPACES + 1):
+                if i <= self.NUM_SPACES / 2:
+                    self.move_space_to_display(i + 1, 1)
+                else:
+                    self.move_space_to_display(i + 1, 2)
+        else:
+            raise Exception("Too many monitors")
+        self.refresh_state()
 
     def ensure_labels(self):
-        self.label_space(1, "reserved")
-        wanted_labels = set(self._space_label(i) for i in range(1, self.NUM_SPACES + 1))
-        existing_labels = set(space["label"] for space in self.spaces)
+        # Desktop 1 is reserved. We don't put anything there because of this
+        # apple issue:
+        #
+        # https://github.com/koekeishiya/yabai/discussions/238#discussioncomment-193399
 
-        for ix, missing_label in enumerate(sorted(wanted_labels - existing_labels)):
-            self.label_space(self.unlabeled_spaces[ix]["index"], missing_label)
+        # Using two monitors, with the one on the right as primary, this is the arrangement:
+        #
+        # Right monitor:
+        # reserved s2 s4 s6 s8 s10
+        # Desktop1 D2 D3 D4 D5 D6
+        #
+        # Left monitor:
+        # s1 s3 s5 s7  s9
+        # D7 D8 D9 D10 D11
+        #
+        self.label_space(1, "reserved")
+        if self.num_displays == 1:
+            for i in range(1, self.NUM_SPACES + 1):
+                self.label_space(i + 1, self._space_label(i))
+        elif self.num_displays == 2:
+            for i in range(1, self.NUM_SPACES + 1):
+                if i <= self.NUM_SPACES / 2:
+                    self.label_space(i + 1, self._space_label(i * 2))
+                else:
+                    self.label_space(
+                        i + 1, self._space_label((i - self.NUM_SPACES / 2) * 2 - 1)
+                    )
+        else:
+            raise Exception("Too many monitors")
+
+        self.refresh_state()
 
     def refocus_first_spaces(self):
         for i in range(1, self.num_displays + 1):
@@ -381,52 +426,25 @@ class WindowManager:
     def reorganize_spaces(self):
         old_states = self.load_yabai_states()
 
-        for space_index in range(1, self.NUM_SPACES + 1):
-            self.move_space_to_display(
-                space_index, self.display_for_space(space_index),
-            )
-
         for space in old_states["spaces"]:
             for window in space["windows"]:
                 if window in self.window_ids:
                     if space["label"]:
-                        self.move_window_to_space(window, space["label"])
-
-        # after re-shuffling, focus the "default" spaces
-        # self.refocus_first_spaces()
-
-    def sort_spaces(self):
-        for i in range(1, self.num_displays + 1):
-            spaces = list(find_all(self.spaces, "display", i))
-            sorted = False
-            # Use bubble sort since we can only use next and prev to rearrange
-            # spaces
-            while not sorted:
-                sorted = True
-                for j in range(1, len(spaces) - 1):
-                    label_a = int(spaces[j]["label"][1:])
-                    label_b = int(spaces[j+1]["label"][1:])
-                    if label_a > label_b:
-                        yabai_message("space", "--focus", self._space_label(label_a))
-                        yabai_message("space", "--move", "next")
-                        spaces[j], spaces[j+1] = spaces[j+1], spaces[j]
-                        sorted = False
+                        if space["label"] == "reserved":
+                            self.move_window_to_space(window, "s1")
+                        else:
+                            self.move_window_to_space(window, space["label"])
+        self.refresh_state()
 
     def update_spaces(self):
         self.ensure_spaces()
-        self.refresh_state()
-
         self.ensure_labels()
-        self.refresh_state()
-
-        self.reorganize_spaces()
-        self.refresh_state()
-
         self.remove_unnecessary_spaces()
-        self.refresh_state()
-
-        self.sort_spaces()
-        self.refresh_state()
+        self.reorganize_spaces()
+        # Probably a yabai bug somehwere. When this is called by yabai on a
+        # signal of the display_added event, sending a window to a different
+        # space sometimes doesn't take effect. So, here we run it twice.
+        self.reorganize_spaces()
 
 
 def add_subcommand(sub, func, subcommand_name, subcommand_args=[]):

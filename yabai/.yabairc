@@ -11,29 +11,28 @@
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
-yabai -m config layout                       bsp
-yabai -m config top_padding                  0
-yabai -m config bottom_padding               0
-yabai -m config left_padding                 0
-yabai -m config right_padding                0
-yabai -m config window_gap                   0
+yabai -m config layout bsp
+yabai -m config top_padding 0
+yabai -m config bottom_padding 0
+yabai -m config left_padding 0
+yabai -m config right_padding 0
+yabai -m config window_gap 0
 
-yabai -m config window_opacity               on
-yabai -m config active_window_opacity        1.0
-yabai -m config normal_window_opacity        0.95
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.95
 # yabai -m config window_opacity_duration      0.0   # https://github.com/koekeishiya/yabai/issues/277#issuecomment-552944282
 
 yabaictl update-spaces
 
-yabai -m rule --add app="^1Password 7$"        manage=off
-yabai -m rule --add app="^Activity Monitor$"   manage=off
-yabai -m rule --add app="^Finder$"             manage=off
-yabai -m rule --add app="^GoToMeeting$"        manage=off
-yabai -m rule --add app="^Preview$"            manage=off
-yabai -m rule --add app="^Simulator$"          manage=off
+yabai -m rule --add app="^1Password 7$" manage=off
+yabai -m rule --add app="^Activity Monitor$" manage=off
+yabai -m rule --add app="^Finder$" manage=off
+yabai -m rule --add app="^GoToMeeting$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
+yabai -m rule --add app="^Simulator$" manage=off
 yabai -m rule --add app="^System Preferences$" manage=off
 
-
-yabai -m signal --add event=display_added action='zsh -c "yabaictl update-spaces"'
-yabai -m signal --add event=display_removed action='zsh -c "yabaictl update-spaces"'
-
+yabai -m signal --add event=display_added action='zsh -c "echo display_added && yabaictl update-spaces"'
+yabai -m signal --add event=display_removed action='zsh -c "echo display_removed && yabaictl update-spaces"'
+yabai -m signal --add event=system_woke action='zsh -c "echo system_woke && yabaictl update-spaces"'
