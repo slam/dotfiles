@@ -19,6 +19,7 @@ case $uname in
         jq \
         neovim \
         node \
+        ripgrep \
         stow \
         yabai
 
@@ -51,6 +52,8 @@ case $uname in
         fasd \
         git \
         stow
+
+    cargo install ripgrep
 
     sudo chsh -s /usr/bin/zsh $USER
 
