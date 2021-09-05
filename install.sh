@@ -100,7 +100,6 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
     fi
     git clone https://github.com/NvChad/NvChad ~/.config/nvim
     ./apply-patches.sh
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 
 if ! command -v rustup > /dev/null; then
