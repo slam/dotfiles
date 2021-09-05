@@ -99,7 +99,8 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
         mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
     fi
     git clone https://github.com/NvChad/NvChad ~/.config/nvim
-    nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
+    ./apply-patches.sh
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 fi
 
 if ! command -v rustup > /dev/null; then
