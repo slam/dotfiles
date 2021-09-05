@@ -102,6 +102,10 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
     nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
 fi
 
+if ! command -v rustup > /dev/null; then
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+fi
+
 stow git
 stow zsh
 
