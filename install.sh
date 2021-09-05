@@ -35,7 +35,7 @@ case $uname in
         menumeters
 
     brew install \
-	font-meslo-lg-nerd-font
+        font-meslo-lg-nerd-font
 
     if [ ! -d "$HOME/.neovim3" ]; then
         python3 -m venv "$HOME/.neovim3"
@@ -80,7 +80,7 @@ case $uname in
 
         mkdir -p "$HOME/.npm-packages"
         npm config set prefix "$HOME/.npm-packages"
-    	npm install -g neovim
+        npm install -g neovim
     fi
 
     ;;
@@ -95,11 +95,11 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
 fi
 
 if [ ! -d "$HOME/.config/nvim/.git" ]; then
-  if [ -e "$HOME/.config/nvim" ]; then
-    mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
-  fi
-  git clone https://github.com/NvChad/NvChad ~/.config/nvim
-  nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
+    if [ -e "$HOME/.config/nvim" ]; then
+        mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
+    fi
+    git clone https://github.com/NvChad/NvChad ~/.config/nvim
+    nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
 fi
 
 stow git
@@ -110,6 +110,8 @@ case $uname in
     stow karabiner
     stow kitty
     stow yabai
+
+    ln -sf "$HOME/bin/yabaictl" /usr/local/bin/yabaictl
     ;;
 "Linux") ;;
 
