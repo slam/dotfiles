@@ -112,6 +112,7 @@ case $uname in
     stow yabai
 
     ln -sf "$HOME/bin/yabaictl" /usr/local/bin/yabaictl
+    ln -sf "$HOME/bin/yabaifocus" /usr/local/bin/yabaifocus
     ;;
 "Linux") ;;
 
