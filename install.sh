@@ -91,8 +91,15 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
 fi
 
+if [ ! -d "$HOME/.config/nvim/.git" ]; then
+  if [ -e "$HOME/.config/nvim" ]; then
+    mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
+  fi
+  git clone https://github.com/NvChad/NvChad ~/.config/nvim
+  nvim +'hi NormalFloat guibg=#1e222a' +PackerSync
+fi
+
 stow git
-stow nvim
 stow zsh
 
 case $uname in
