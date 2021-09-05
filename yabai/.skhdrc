@@ -3,9 +3,6 @@
 # http://brettterpstra.com/2017/06/15/a-hyper-key-with-karabiner-elements-full-instructions/
 # https://brettterpstra.com/2019/05/10/did-your-hyper-key-break/
 #
-#
-# https://github.com/koekeishiya/yabai/issues/83#issuecomment-509177988
-#ralt + rctrl + rshift - m : ~/.toggle_monocle_mode
 
 ralt + rctrl + rshift - b : yabai -m space --layout bsp && yabai -m space --mirror y-axis && yabai -m window --swap largest
 ralt + rctrl + rshift - f : yabai -m space --layout float
