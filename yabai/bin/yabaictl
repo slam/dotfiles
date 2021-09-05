@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import argparse
 import json
-import pickle
 import subprocess
 import time
 from os.path import expanduser
@@ -164,24 +163,24 @@ class WindowManager:
         self.save_yabaictl_states()
 
     def save_yabai_states(self):
-        with open(self.yabai_cache_path, "wb") as f:
-            pickle.dump(self.yabai_states, f)
+        with open(self.yabai_cache_path, "w") as f:
+            json.dump(self.yabai_states, f)
 
     def load_yabai_states(self):
         try:
-            with open(self.yabai_cache_path, "rb") as f:
-                return pickle.load(f)
+            with open(self.yabai_cache_path, "r") as f:
+                return json.load(f)
         except FileNotFoundError:
             return {"spaces": [], "displays": [], "windows": []}
 
     def save_yabaictl_states(self):
-        with open(self.yabaictl_cache_path, "wb") as f:
-            pickle.dump(self.yabaictl_states, f)
+        with open(self.yabaictl_cache_path, "w") as f:
+            json.dump(self.yabaictl_states, f)
 
     def load_yabaictl_states(self):
         try:
-            with open(self.yabaictl_cache_path, "rb") as f:
-                return pickle.load(f)
+            with open(self.yabaictl_cache_path, "r") as f:
+                return json.load(f)
         except FileNotFoundError:
             return {"recent": 0}
 
