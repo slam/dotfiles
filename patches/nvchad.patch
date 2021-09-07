@@ -29,3 +29,17 @@ index 986a835..0aefefe 100644
     vim_matchup = true, -- % magic, match it but improved
  }
  
+diff --git a/lua/core/autocmds.lua b/lua/core/autocmds.lua
+index c74ef95..ac70626 100644
+--- a/lua/core/autocmds.lua
++++ b/lua/core/autocmds.lua
+@@ -15,3 +15,9 @@ vim.cmd [[ autocmd BufEnter,BufWinEnter,FileType,WinEnter * lua require("core.ut
+ -- vim.cmd [[ au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif ]]
+ -- File extension specific tabbing
+ -- vim.cmd [[ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
++
++-- autoformat on save
++vim.cmd [[ augroup fmt
++  autocmd!
++  autocmd BufWritePre * undojoin | Neoformat
++augroup END ]]
