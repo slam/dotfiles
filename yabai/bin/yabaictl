@@ -5,18 +5,6 @@ import subprocess
 import time
 from os.path import expanduser
 
-# these are used to determine display order
-setups = {
-    "dual-big-monitors": [
-        "5CDE6E08-A34A-E536-F9F2-5D47625D75BF",
-        "0741A56E-8E6A-8BEE-9DE9-5EAD44464C53",
-    ],
-    "acer": ["5CDE6E08-A34A-E536-F9F2-5D47625D75BF"],
-    "asus": ["0741A56E-8E6A-8BEE-9DE9-5EAD44464C53"],
-    "laptop-work": ["26F17565-E8B3-59AF-38BE-D0A6F0F61133"],
-    "laptop-home": ["E5B6EA75-FD04-E007-27FB-AED92723DB84"],
-}
-
 ignore_messages = [
     "acting space is already located on the given display.",
     "cannot focus an already focused space.",
@@ -123,23 +111,11 @@ class WindowManager:
     def window_ids(self):
         return [window["id"] for window in self.windows]
 
-    def find_monitor_setup(self):
-        found_setup = False
-        for setup in setups.values():
-            if set(self.display_uuids) == set(setup):
-                found_setup = True
-                for ix, uuid in enumerate(setup):
-                    self.find_display(uuid=uuid)["location"] = ix
-        return found_setup
-
     def refresh_state(self):
         self.yabai_states["spaces"] = yabai_query("spaces")
         self.yabai_states["displays"] = yabai_query("displays")
         self.yabai_states["windows"] = yabai_query("windows")
         self.yabaictl_states = self.load_yabaictl_states()
-
-        if not self.find_monitor_setup():
-            raise Exception("unidentified monitor setup")
 
     def label_space(self, space_index, label):
         yabai_message(
@@ -183,34 +159,6 @@ class WindowManager:
                 return json.load(f)
         except FileNotFoundError:
             return {"recent": 0}
-
-    def find_display(self, display=None, index=None, uuid=None):
-        """
-
-        Parameters
-        ----------
-        display :
-             Human identifiable display index (based on display order)
-        index :
-             System managed display index (based on returned value from yabai)
-        uuid :
-             System managed display UUID
-
-        Returns
-        -------
-
-        """
-        if display is not None:
-            val = display
-            key = "location"
-        elif uuid is not None:
-            val = uuid
-            key = "uuid"
-        elif index is not None:
-            val = index
-            key = "index"
-
-        return find_one(self.displays, key, val)
 
     def find_space(self, space=None, index=None):
         """
