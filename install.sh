@@ -115,7 +115,8 @@ case $uname in
     stow kitty
     stow yabai
 
-    ln -sf "$HOME/bin/yabaictl" /usr/local/bin/yabaictl
+    cargo install --git https://github.com/slam/yabaictl --branch main
+    ln -sf "$HOME/.cargo/bin/yabaictl" /usr/local/bin/yabaictl
     ln -sf "$HOME/bin/yabaifocus" /usr/local/bin/yabaifocus
     ;;
 "Linux") ;;
