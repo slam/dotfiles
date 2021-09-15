@@ -4,7 +4,7 @@
 # https://brettterpstra.com/2019/05/10/did-your-hyper-key-break/
 #
 
-ralt + rctrl + rshift - b : yabai -m space --layout bsp && yabai -m space --mirror y-axis && yabai -m window --swap largest
+ralt + rctrl + rshift - b : yabailayout bsp
 ralt + rctrl + rshift - f : yabai -m space --layout float
 ralt + rctrl + rshift - m : yabai -m space --layout stack
 

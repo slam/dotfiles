@@ -1,0 +1,18 @@
+#!/bin/sh
+
+num_displays=$(yabai -m query --displays | jq -r '. | length')
+
+if [ "$1" = "bsp" ]
+then
+    if [ "$num_displays" = "1" ]
+    then
+      yabai -m space --layout bsp && yabai -m space --mirror y-axis && yabai -m window --swap largest
+    elif [ "$num_displays" = "2" ]
+    then
+      yabai -m space --layout bsp && yabai -m window --swap largest
+    else
+      exit 1
+    fi
+else
+    exit 1
+fi

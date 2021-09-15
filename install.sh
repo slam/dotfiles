@@ -119,6 +119,7 @@ case $uname in
     cargo install --git https://github.com/slam/yabaictl --branch main
     ln -sf "$HOME/.cargo/bin/yabaictl" /usr/local/bin/yabaictl
     ln -sf "$HOME/bin/yabaifocus" /usr/local/bin/yabaifocus
+    ln -sf "$HOME/bin/yabailayout" /usr/local/bin/yabailayout
     ;;
 "Linux") ;;
 
