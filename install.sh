@@ -54,7 +54,9 @@ case $uname in
         git \
         stow
 
-    cargo install ripgrep
+    if [ ! -x "$HOME/.cargo/bin/rg" ]; then
+        cargo install ripgrep
+    fi
 
     sudo chsh -s /usr/bin/zsh $USER
 
