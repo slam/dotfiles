@@ -49,10 +49,12 @@ case $uname in
 "Linux")
     sudo apt-get update
     sudo apt-get install -y \
+	build-essential \
         curl \
         fasd \
         git \
-        stow
+        stow \
+        zsh
 
     sudo chsh -s /usr/bin/zsh $USER
 
@@ -65,7 +67,7 @@ case $uname in
     asdf install neovim stable
     asdf global neovim stable
 
-    if [ -n "$CODER_USERNAME" ]; then
+    if [ -n "${CODER_USERNAME:-}" ]; then
         if [ ! -d "$HOME/.neovim2" ]; then
             pip install --user virtualenv
             "$HOME/.local/bin/virtualenv" "$HOME/.neovim2"
@@ -102,6 +104,7 @@ fi
 
 if ! command -v rustup >/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    . "$HOME/.cargo/env"
 fi
 rustup install stable
 
