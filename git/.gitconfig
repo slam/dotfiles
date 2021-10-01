@@ -2,7 +2,7 @@
 name = Sahn Lam
 email = slam@users.noreply.github.com
 [url "\"git@github.com:\""]
-insteadOf = \"https://github.com/\"
+	insteadOf = \"https://github.com/\"
 [alias]
 append = town append
 hack = town hack
