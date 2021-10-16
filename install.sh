@@ -102,7 +102,6 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
         mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
     fi
     git clone https://github.com/NvChad/NvChad ~/.config/nvim
-    ./apply-patches.sh
 fi
 
 if ! command -v rustup > /dev/null; then
@@ -111,6 +110,9 @@ fi
 
 stow git
 stow zsh
+
+stow nvim
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 case $uname in
 "Darwin")
