@@ -20,7 +20,6 @@ case $uname in
         jq \
         neovim \
         node@14 \
-        ripgrep \
         stow \
         yabai
 
@@ -54,10 +53,6 @@ case $uname in
         fasd \
         git \
         stow
-
-    if [ ! -x "$HOME/.cargo/bin/rg" ]; then
-        cargo install ripgrep
-    fi
 
     sudo chsh -s /usr/bin/zsh $USER
 
@@ -108,16 +103,25 @@ fi
 if ! command -v rustup >/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
+rustup install stable
+
+if [ ! -x "$HOME/.cargo/bin/rg" ]; then
+    cargo install ripgrep
+fi
+
+# Formatters
+if [ ! -x "$HOME/.cargo/bin/stylua" ]; then
+    cargo install stylua
+fi
+if [ ! -x "$HOME/go/bin/shfmt" ]; then
+    go install mvdan.cc/sh/v3/cmd/shfmt
+fi
 
 stow git
 stow zsh
 
 stow nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-# Formatters
-cargo install stylua
-go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
 case $uname in
 "Darwin")
