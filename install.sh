@@ -58,6 +58,18 @@ case $uname in
 
     sudo chsh -s /usr/bin/zsh $USER
 
+    # golang
+    if [ ! -d "/usr/local/go" ]; then
+        curl -O https://dl.google.com/go/go1.17.2.linux-amd64.tar.gz
+        tar xvf go1.17.2.linux-amd64.tar.gz -C /tmp
+        sudo chown -R root:root /tmp/go
+        sudo mv /tmp/go /usr/local/
+        sudo ln -sf /usr/local/go/bin/go /usr/local/bin/go
+        sudo ln -sf /usr/local/go/bin/gofmt /usr/local/bin/gofmt
+        hash -r
+    fi
+
+
     if [ ! -d "$HOME/.asdf" ]; then
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
     fi
@@ -117,7 +129,7 @@ if [ ! -x "$HOME/.cargo/bin/stylua" ]; then
     cargo install stylua
 fi
 if [ ! -x "$HOME/go/bin/shfmt" ]; then
-    go install mvdan.cc/sh/v3/cmd/shfmt
+    go install mvdan.cc/sh/v3/cmd/shfmt@latest
 fi
 
 stow git
