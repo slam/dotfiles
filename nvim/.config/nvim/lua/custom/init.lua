@@ -1,7 +1,7 @@
 -- This is where your custom modules and plugins go.
 -- See the wiki for a guide on how to extend NvChad
 
-local hooks = require "core.hooks"
+local hooks = require("core.hooks")
 
 -- NOTE: To use this, make a copy with `cp example_init.lua init.lua`
 
@@ -31,16 +31,19 @@ local hooks = require "core.hooks"
 -- see: https://github.com/wbthomason/packer.nvim
 -- examples below:
 
--- hooks.add("install_plugins", function(use)
---    use {
---       "max397574/better-escape.nvim",
---       event = "InsertEnter",
---    }
--- end)
+hooks.add("install_plugins", function(use)
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		after = "nvim-lspconfig",
+		config = function()
+			require("custom.plugins.null-ls").setup()
+		end,
+	})
+end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"
 -- then source it with
 
 -- require "custom.plugins.mkdir"
 
-require "custom.autocmds"
+require("custom.autocmds")
