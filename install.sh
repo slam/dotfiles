@@ -15,6 +15,7 @@ case $uname in
         fasd \
         git \
         git-town \
+        go \
         htop \
         jq \
         neovim \
@@ -104,8 +105,8 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
     git clone https://github.com/NvChad/NvChad ~/.config/nvim
 fi
 
-if ! command -v rustup > /dev/null; then
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if ! command -v rustup >/dev/null; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
 stow git
@@ -113,6 +114,10 @@ stow zsh
 
 stow nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+# Formatters
+cargo install stylua
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
 
 case $uname in
 "Darwin")
