@@ -42,7 +42,9 @@ case $uname in
         python3 -m venv "$HOME/.neovim3"
         "$HOME/.neovim3/bin/pip" install neovim
     fi
-    npm install -g neovim
+    if [ ! -d "/usr/local/lib/node_modules/neovim" ]; then
+        npm install -g neovim
+    fi
 
     defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
     ;;
