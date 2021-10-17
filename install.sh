@@ -92,7 +92,9 @@ case $uname in
 
         mkdir -p "$HOME/.npm-packages"
         npm config set prefix "$HOME/.npm-packages"
-        npm install -g neovim
+        if [ ! -d "$HOME/.npm-packages/lib/node_modules/neovim" ]; then
+            npm install -g neovim
+        fi
     fi
 
     ;;
