@@ -9,7 +9,10 @@ local b = null_ls.builtins
 local sources = {
 
 	-- Lua
-	b.formatting.stylua,
+	b.formatting.stylua.with({
+		-- https://github.com/JohnnyMorganz/StyLua/issues/281
+		extra_args = { "--num-threads", "2" },
+	}),
 
 	-- Shell
 	b.formatting.shfmt.with({
@@ -29,6 +32,8 @@ M.setup = function(on_attach)
 
 	local opts = { noremap = true, silent = true }
 	buf_set_keymap("n", "<leader>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+	vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 
 	require("lspconfig")["null-ls"].setup({ on_attach = on_attach })
 end

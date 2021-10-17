@@ -49,7 +49,7 @@ case $uname in
 "Linux")
     sudo apt-get update
     sudo apt-get install -y \
-	build-essential \
+        build-essential \
         curl \
         fasd \
         git \
@@ -68,7 +68,6 @@ case $uname in
         sudo ln -sf /usr/local/go/bin/gofmt /usr/local/bin/gofmt
         hash -r
     fi
-
 
     if [ ! -d "$HOME/.asdf" ]; then
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1
