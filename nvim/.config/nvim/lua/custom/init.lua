@@ -21,10 +21,9 @@ local hooks = require("core.hooks")
 -- you can set one or many mappings
 -- example below:
 
--- hooks.add("setup_mappings", function(map)
---    map("n", "<leader>cc", "gg0vG$d", opt) -- example to delete the buffer
---    .... many more mappings ....
--- end)
+hooks.add("setup_mappings", function(map)
+	map("n", "<leader>gs", ":Git <CR>")
+end)
 
 -- To add new plugins, use the "install_plugin" hook,
 -- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
@@ -38,6 +37,10 @@ hooks.add("install_plugins", function(use)
 		config = function()
 			require("custom.plugins.null-ls").setup()
 		end,
+	})
+
+	use({
+		"tpope/vim-fugitive",
 	})
 end)
 
