@@ -94,8 +94,13 @@ case $uname in
 
         mkdir -p "$HOME/.npm-packages"
         npm config set prefix "$HOME/.npm-packages"
+
         if [ ! -d "$HOME/.npm-packages/lib/node_modules/neovim" ]; then
             npm install -g neovim
+        fi
+
+        if [ ! -d "$HOME/.npm-packages/lib/node_modules/pyright" ]; then
+            npm install -g pyright
         fi
     fi
 
