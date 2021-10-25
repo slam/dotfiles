@@ -30,6 +30,14 @@ M.setup_lsp = function(attach, capabilities)
 				or lspconfig.util.path.dirname(fname)
 		end,
 	})
+
+	lspconfig.elixirls.setup({
+		on_attach = attach,
+		capabilities = capabilities,
+		cmd = {
+			vim.fn.expand("~/.vscode-server/extensions/jakebecker.elixir-ls-0.8.1/elixir-ls-release/language_server.sh"),
+		},
+	})
 end
 
 return M
