@@ -146,6 +146,8 @@ stow zsh
 stow nvim
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
+stow tmux
+
 case $uname in
 "Darwin")
     stow karabiner
