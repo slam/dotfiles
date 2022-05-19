@@ -2,7 +2,17 @@
 name = Sahn Lam
 email = slam@users.noreply.github.com
 [url "\"git@github.com:\""]
-	insteadOf = \"https://github.com/\"
+insteadOf = \"https://github.com/\"
+[core]
+editor = code --wait
+[diff]
+tool = vscode
+[difftool "vscode"]
+cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+tool = vscode
+[mergetool "vscode"]
+cmd = code --wait $MERGED
 [alias]
 append = town append
 hack = town hack
@@ -14,3 +24,5 @@ rename-branch = town rename-branch
 repo = town repo
 ship = town ship
 sync = town sync
+[init]
+	defaultBranch = main
