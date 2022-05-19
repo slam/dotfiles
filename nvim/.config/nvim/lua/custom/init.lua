@@ -1,7 +1,7 @@
 -- This is where your custom modules and plugins go.
 -- See the wiki for a guide on how to extend NvChad
 
-local hooks = require("core.hooks")
+-- local hooks = require("core.hooks")
 
 -- NOTE: To use this, make a copy with `cp example_init.lua init.lua`
 
@@ -21,28 +21,28 @@ local hooks = require("core.hooks")
 -- you can set one or many mappings
 -- example below:
 
-hooks.add("setup_mappings", function(map)
-	map("n", "<leader>gs", ":Git <CR>")
-end)
+-- hooks.add("setup_mappings", function(map)
+-- 	map("n", "<leader>gs", ":Git <CR>")
+-- end)
 
 -- To add new plugins, use the "install_plugin" hook,
 -- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
 -- see: https://github.com/wbthomason/packer.nvim
 -- examples below:
 
-hooks.add("install_plugins", function(use)
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		after = "nvim-lspconfig",
-		config = function()
-			require("custom.plugins.null-ls").setup()
-		end,
-	})
-
-	use({
-		"tpope/vim-fugitive",
-	})
-end)
+-- hooks.add("install_plugins", function(use)
+-- 	use({
+-- 		"jose-elias-alvarez/null-ls.nvim",
+-- 		after = "nvim-lspconfig",
+-- 		config = function()
+-- 			require("custom.plugins.null-ls").setup()
+-- 		end,
+-- 	})
+-- 
+-- 	use({
+-- 		"tpope/vim-fugitive",
+-- 	})
+-- end)
 
 -- alternatively, put this in a sub-folder like "lua/custom/plugins/mkdir"
 -- then source it with
@@ -50,3 +50,5 @@ end)
 -- require "custom.plugins.mkdir"
 
 require("custom.autocmds")
+
+vim.g.mapleader = ','
