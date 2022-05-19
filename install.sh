@@ -77,8 +77,8 @@ case $uname in
 
     . $HOME/.asdf/asdf.sh
     asdf plugin add neovim || true
-    asdf install neovim stable
-    asdf global neovim stable
+    asdf install neovim 0.7.0
+    asdf global neovim 0.7.0
 
     if [ -n "${CODER_USERNAME:-}" ]; then
         if [ ! -d "$HOME/.neovim2" ]; then
