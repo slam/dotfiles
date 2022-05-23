@@ -55,6 +55,7 @@ case $uname in
         curl \
         fasd \
         git \
+        kubectl \
         stow \
         zsh
 
@@ -102,6 +103,10 @@ case $uname in
         if [ ! -d "$HOME/.npm-packages/lib/node_modules/pyright" ]; then
             npm install -g pyright
         fi
+
+        asdf plugin add kubectx || true
+        asdf install kubectx latest
+        asdf global kubectx latest
     fi
 
     ;;
