@@ -1,8 +1,6 @@
 [user]
 name = Sahn Lam
 email = slam@users.noreply.github.com
-[url "\"git@github.com:\""]
-insteadOf = \"https://github.com/\"
 [core]
 editor = code --wait
 [diff]
@@ -26,3 +24,5 @@ ship = town ship
 sync = town sync
 [init]
 	defaultBranch = main
+[include]
+  path = ~/.gitconfig.local
