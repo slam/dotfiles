@@ -106,6 +106,10 @@ case $uname in
         sudo apt-get install -y \
             kubectl
 
+        asdf plugin add fzf https://github.com/kompiro/asdf-fzf.git || true
+        asdf install fzf latest
+        asdf global fzf latest
+
         asdf plugin add kubectx || true
         asdf install kubectx latest
         asdf global kubectx latest
