@@ -77,8 +77,8 @@ case $uname in
 
     . $HOME/.asdf/asdf.sh
     asdf plugin add neovim || true
-    asdf install neovim 0.7.0
-    asdf global neovim 0.7.0
+    asdf install neovim 0.8.0
+    asdf global neovim 0.8.0
 
     if [ -n "${CODER_USERNAME:-}" ]; then
         if [ ! -d "$HOME/.neovim2" ]; then
@@ -130,6 +130,8 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
     if [ -e "$HOME/.config/nvim" ]; then
         mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
     fi
+    rm -rf ~/.local/share/nvim
+    rm -rf ~/.cache/nvim
     git clone https://github.com/NvChad/NvChad ~/.config/nvim
 fi
 
@@ -155,7 +157,6 @@ stow git
 stow zsh
 
 stow nvim
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 stow tmux
 
