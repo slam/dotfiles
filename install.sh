@@ -19,12 +19,12 @@ case $uname in
         htop \
         jq \
         neovim \
-        node@14 \
+        node@16 \
         shellcheck \
         stow \
         yabai
 
-    brew link --overwrite node@14
+    brew link --overwrite node@16
     brew install skhd --with-logging
 
     brew install \
