@@ -20,6 +20,7 @@ case $uname in
         jq \
         neovim \
         node@14 \
+        shellcheck \
         stow \
         yabai
 
