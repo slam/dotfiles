@@ -145,6 +145,14 @@ if [ ! -x "$HOME/.cargo/bin/rg" ]; then
     cargo install ripgrep
 fi
 
+if [ ! -x "$HOME/.cargo/bin/git-stack" ]; then
+    cargo install git-stack
+fi
+
+if [ ! -x "$HOME/.cargo/bin/git-branch-stash" ]; then
+    cargo install git-branch-stash-cli
+fi
+
 # Formatters
 if [ ! -x "$HOME/.cargo/bin/stylua" ]; then
     cargo install stylua
