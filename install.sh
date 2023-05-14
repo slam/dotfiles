@@ -13,6 +13,7 @@ case $uname in
 
     brew install \
         fasd \
+        gh \
         git \
         git-town \
         go \

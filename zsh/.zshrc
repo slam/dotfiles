@@ -80,6 +80,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=( \
 	asdf \
 	fasd \
+	gh \
 	git \
 	vi-mode \
 )
