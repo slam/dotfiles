@@ -122,3 +122,4 @@ KEYTIMEOUT=1
 if [ -f "$HOME/.zshrc.local" ]; then
   . "$HOME/.zshrc.local"
 fi
+source "$HOME/.git-town-completions.zsh"
