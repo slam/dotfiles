@@ -77,11 +77,11 @@ case $uname in
     fi
 
     . $HOME/.asdf/asdf.sh
-    asdf plugin add neovim || true
-    asdf install neovim 0.8.0
-    asdf global neovim 0.8.0
 
     if [ -n "${CODER_USERNAME:-}" ]; then
+        "$HOME/.nix-profile/bin/nix-env" -i /nix/store/sjiy2knr7zn66g0nagykq04sm6v1bqfr-neovim-0.8.3
+        "$HOME/.nix-profile/bin/nix-env" -f '<nixpkgs>' -iA rust-analyzer
+
         if [ ! -d "$HOME/.neovim2" ]; then
             pip install --user virtualenv
             "$HOME/.local/bin/virtualenv" "$HOME/.neovim2"
@@ -114,6 +114,10 @@ case $uname in
         asdf plugin add kubectx || true
         asdf install kubectx latest
         asdf global kubectx latest
+    else
+        asdf plugin add neovim || true
+        asdf install neovim 0.8.3
+        asdf global neovim 0.8.3
     fi
 
     ;;
@@ -165,7 +169,7 @@ fi
 stow git
 stow zsh
 
-stow nvim
+# stow nvim
 
 stow tmux
 
