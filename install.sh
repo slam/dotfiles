@@ -22,11 +22,11 @@ case $uname in
         neovim \
         node@16 \
         shellcheck \
+        skhd \
         stow \
         yabai
 
     brew link --overwrite node@16
-    brew install skhd --with-logging
 
     brew install \
         alfred \
