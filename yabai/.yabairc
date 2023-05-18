@@ -16,7 +16,10 @@ yabai -m config top_padding 0
 yabai -m config bottom_padding 0
 yabai -m config left_padding 0
 yabai -m config right_padding 0
-yabai -m config window_gap 0
+# Need a small gap so  windows don't overlap, otherwise focusing east or
+# west-ward might wrap around. Similar to what's described here:
+# https://github.com/koekeishiya/yabai/issues/1511
+yabai -m config window_gap 5
 
 yabai -m config window_opacity on
 yabai -m config active_window_opacity 1.0
