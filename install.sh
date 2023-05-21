@@ -13,6 +13,7 @@ case $uname in
 
     brew install \
         fasd \
+        fd \
         gh \
         git \
         git-town \
@@ -21,6 +22,7 @@ case $uname in
         jq \
         neovim \
         node@16 \
+        pyenv \
         shellcheck \
         skhd \
         stow \
@@ -30,14 +32,18 @@ case $uname in
 
     brew install \
         alfred \
+        discord \
+        hammerspoon \
         karabiner-elements \
+        kitty \
+        menumeters \
         resilio-sync \
         spotify \
         visual-studio-code \
-        whatsapp \
-        menumeters
+        whatsapp
 
     brew install \
+        font-iosevka \
         font-meslo-lg-nerd-font
 
     if [ ! -d "$HOME/.neovim3" ]; then
