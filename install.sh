@@ -46,14 +46,6 @@ case $uname in
         font-iosevka \
         font-meslo-lg-nerd-font
 
-    if [ ! -d "$HOME/.neovim3" ]; then
-        python3 -m venv "$HOME/.neovim3"
-        "$HOME/.neovim3/bin/pip" install neovim
-    fi
-    if [ ! -d "/usr/local/lib/node_modules/neovim" ]; then
-        npm install -g neovim
-    fi
-
     defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
     ;;
 "Linux")
