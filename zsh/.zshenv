@@ -21,9 +21,10 @@ if [ -f "$HOME/.cargo.env" ]; then
   . "$HOME/.cargo.env"
 fi
 
-[[ $(type pyenv) ]] &&
-  eval "$(pyenv init -)" &&
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+fi
 
 export PATH=$HOME/go/bin:$PATH
 
