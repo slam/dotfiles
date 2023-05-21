@@ -190,6 +190,12 @@ case $uname in
     ln -sf "$HOME/.cargo/bin/yabaictl" /usr/local/bin/yabaictl
     ln -sf "$HOME/bin/yabaifocus" /usr/local/bin/yabaifocus
     ln -sf "$HOME/bin/yabailayout" /usr/local/bin/yabailayout
+
+    if [ ! -d "$HOME/.hammerspoon/stackline" ]; then
+        mkdir -p "$HOME/.hammerspoon"
+        git clone https://github.com/AdamWagner/stackline.git "$HOME/.hammerspoon/stackline"
+    fi
+    stow hammerspoon
     ;;
 "Linux") ;;
 
