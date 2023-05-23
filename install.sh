@@ -31,6 +31,7 @@ case $uname in
     brew link --overwrite node@16
 
     brew install \
+        aldente \
         alfred \
         discord \
         hammerspoon \
