@@ -11,9 +11,13 @@ then
         yabai -m window --focus north || yabai -m window --focus prev || yabai -m window --focus last
     fi
 elif [ "$1" = "south" ]
-    yabai -m window --focus "stack.next" || yabai -m window --focus "stack.first"
 then
-    yabai -m window --focus south || yabai -m window --focus next || yabai -m window --focus first
+    if [ "$type" = "stack" ]
+    then
+        yabai -m window --focus "stack.next" || yabai -m window --focus "stack.first"
+    else
+        yabai -m window --focus south || yabai -m window --focus next || yabai -m window --focus first
+    fi
 else
     exit 1
 fi
