@@ -28,15 +28,14 @@ yabai -m config normal_window_opacity 0.95
 
 yabaictl restore-spaces
 
-yabai -m rule --add app="^1Password 7$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
+yabai -m rule --add app="^AlDente$" manage=off
 yabai -m rule --add app="^Activity Monitor$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^GoToMeeting$" manage=off
 yabai -m rule --add app="^Lunar$" manage=off
-yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^Simulator$" manage=off
-yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Xcode$" manage=off
 
 yabai -m signal --add event=display_added action='zsh -c "echo display_added && yabaictl restore-spaces"'
