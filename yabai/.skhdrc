@@ -62,22 +62,24 @@ ralt + rctrl + rshift - 7 : yabaictl focus-space 7
 ralt + rctrl + rshift - 8 : yabaictl focus-space 8
 ralt + rctrl + rshift - 9 : yabaictl focus-space 9
 ralt + rctrl + rshift - 0 : yabaictl focus-space 10
-ralt + rctrl + rshift - 0x32 : yabaictl focus-space extra
+ralt + rctrl + rshift - 0x32 : yabaictl focus-space third
+ralt + rctrl + rshift - 0x1B : yabaictl focus-space fourth
 
 ralt + rctrl + rshift + lshift - o : yabai -m window --space recent; yabai -m space --focus recent
 ralt + rctrl + rshift + lshift - p : yabai -m window --space prev; yabai -m space --focus prev
 ralt + rctrl + rshift + lshift - n : yabai -m window --space next; yabai -m space --focus next
-ralt + rctrl + rshift + lshift - 1 : yabai -m window --space s1 && yabai -m space --focus s1
-ralt + rctrl + rshift + lshift - 2 : yabai -m window --space s2 && yabai -m space --focus s2
-ralt + rctrl + rshift + lshift - 3 : yabai -m window --space s3 && yabai -m space --focus s3
-ralt + rctrl + rshift + lshift - 4 : yabai -m window --space s4 && yabai -m space --focus s4
-ralt + rctrl + rshift + lshift - 5 : yabai -m window --space s5 && yabai -m space --focus s5
-ralt + rctrl + rshift + lshift - 6 : yabai -m window --space s6 && yabai -m space --focus s6
-ralt + rctrl + rshift + lshift - 7 : yabai -m window --space s7 && yabai -m space --focus s7
-ralt + rctrl + rshift + lshift - 8 : yabai -m window --space s8 && yabai -m space --focus s8
-ralt + rctrl + rshift + lshift - 9 : yabai -m window --space s9 && yabai -m space --focus s9
-ralt + rctrl + rshift + lshift - 0 : yabai -m window --space s10 && yabai -m space --focus s10
-ralt + rctrl + rshift + lshift - 0x32 : yabai -m window --space s11 && yabai -m space --focus s11
+ralt + rctrl + rshift + lshift - 1 : yabai -m window --space s1 # && yabai -m space --focus s1
+ralt + rctrl + rshift + lshift - 2 : yabai -m window --space s2 # && yabai -m space --focus s2
+ralt + rctrl + rshift + lshift - 3 : yabai -m window --space s3 # && yabai -m space --focus s3
+ralt + rctrl + rshift + lshift - 4 : yabai -m window --space s4 # && yabai -m space --focus s4
+ralt + rctrl + rshift + lshift - 5 : yabai -m window --space s5 # && yabai -m space --focus s5
+ralt + rctrl + rshift + lshift - 6 : yabai -m window --space s6 # && yabai -m space --focus s6
+ralt + rctrl + rshift + lshift - 7 : yabai -m window --space s7 # && yabai -m space --focus s7
+ralt + rctrl + rshift + lshift - 8 : yabai -m window --space s8 # && yabai -m space --focus s8
+ralt + rctrl + rshift + lshift - 9 : yabai -m window --space s9 # && yabai -m space --focus s9
+ralt + rctrl + rshift + lshift - 0 : yabai -m window --space s10 # && yabai -m space --focus s10
+ralt + rctrl + rshift + lshift - 0x32 : yabai -m window --space s11 # && yabai -m space --focus s11
+ralt + rctrl + rshift + lshift - 0x1B : yabai -m window --space s12 # && yabai -m space --focus s12
 
 ralt + rctrl + rshift - w : yabai -m display --focus 1
 ralt + rctrl + rshift - q : yabai -m display --focus 2
