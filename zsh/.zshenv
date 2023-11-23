@@ -17,8 +17,8 @@ if [ -e /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-if [ -f "$HOME/.cargo.env" ]; then
-  . "$HOME/.cargo.env"
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
 fi
 
 if command -v pyenv 1>/dev/null 2>&1; then
