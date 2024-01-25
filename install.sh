@@ -134,8 +134,9 @@ if [ ! -d "$HOME/.config/nvim/.git" ]; then
         mv "$HOME/.config/nvim" "$HOME/.config/nvim.orig"
     fi
     rm -rf ~/.local/share/nvim
+    rm -rf ~/.local/state/nvim
     rm -rf ~/.cache/nvim
-    git clone https://github.com/NvChad/NvChad ~/.config/nvim
+    git clone --depth 1 https://github.com/AstroNvim/AstroNvim ~/.config/nvim
 fi
 
 if ! command -v rustup >/dev/null; then
@@ -167,7 +168,7 @@ fi
 stow git
 stow zsh
 
-# stow nvim
+stow nvim
 
 stow tmux
 
