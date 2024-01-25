@@ -2,7 +2,6 @@
 # /etc/zprofile. We have to set our PATH in .zprofile.
 #
 # https://apple.stackexchange.com/questions/432226/homebrew-path-set-in-zshenv-is-overridden
-export PATH="$HOME/.poetry/bin:$PATH"
 
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
   . $HOME/.nix-profile/etc/profile.d/nix.sh
@@ -30,6 +29,8 @@ fi
 if [ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]; then
   source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 fi
+
+export PATH="$HOME/bin:$HOME/.local/bin:/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 if [ -f "$HOME/.zprofile.local" ]; then
   . "$HOME/.zprofile.local"
