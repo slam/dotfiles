@@ -25,8 +25,7 @@ case $uname in
         pyenv \
         shellcheck \
         skhd \
-        stow \
-        yabai
+        stow
 
     brew link --overwrite node@16
 
@@ -176,18 +175,8 @@ case $uname in
 "Darwin")
     stow karabiner
     stow kitty
-    stow yabai
-
-    cargo install --git https://github.com/slam/yabaictl --branch main
-    ln -sf "$HOME/.cargo/bin/yabaictl" /usr/local/bin/yabaictl
-    ln -sf "$HOME/bin/yabaifocus" /usr/local/bin/yabaifocus
-    ln -sf "$HOME/bin/yabailayout" /usr/local/bin/yabailayout
-
-    if [ ! -d "$HOME/.hammerspoon/stackline" ]; then
-        mkdir -p "$HOME/.hammerspoon"
-        git clone https://github.com/AdamWagner/stackline.git "$HOME/.hammerspoon/stackline"
-    fi
-    stow hammerspoon
+    stow skhd
+    stow aerospace
     ;;
 "Linux") ;;
 
