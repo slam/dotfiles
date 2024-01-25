@@ -34,7 +34,6 @@ case $uname in
         aldente \
         alfred \
         discord \
-        hammerspoon \
         karabiner-elements \
         kitty \
         menumeters \
