@@ -21,7 +21,7 @@ case $uname in
         htop \
         jq \
         neovim \
-        node@16 \
+        node@18 \
         pyenv \
         shellcheck \
         skhd \
@@ -36,6 +36,7 @@ case $uname in
         karabiner-elements \
         kitty \
         menumeters \
+        neovide \
         resilio-sync \
         spotify \
         visual-studio-code \
