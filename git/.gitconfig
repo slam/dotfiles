@@ -26,3 +26,5 @@ sync = town sync
 	defaultBranch = main
 [include]
   path = ~/.gitconfig.local
+[rerere]
+	enabled = true
