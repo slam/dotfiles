@@ -1,14 +1,11 @@
 README.md
 
 # Ignore all the old dotfile setup.
-aerospace
 git
 install.sh
-karabiner
 kitty
 nvim
 rust-toolchain
-skhd
 tmux
 zsh
 
