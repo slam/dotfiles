@@ -1,0 +1,10 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+if command -v zoxide > /dev/null
+    zoxide init fish | source
+end
+
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    set -g fish_key_bindings fish_vi_key_bindings
+end
