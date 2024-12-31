@@ -169,7 +169,19 @@ if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace E'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.Notes'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
 if.app-id = 'com.apple.finder'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
 run = 'layout floating'
 
 [[on-window-detected]]
