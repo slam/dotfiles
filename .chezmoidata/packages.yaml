@@ -1,0 +1,15 @@
+packages:
+  darwin:
+    brews:
+      - "fish"
+      - "skhd"
+      - "uv"
+      - "zoxide"
+    casks:
+      - "1password"
+      - "1password-cli"
+      - "aerospace"
+      - "arc"
+      - "cursor"
+      - "karabiner-elements"
+      - "visual-studio-code"

@@ -2,20 +2,12 @@
 #!/bin/bash
 
 brew bundle --no-lock --file=/dev/stdin <<EOF
-
-cask "1password"
-cask "1password-cli"
-
-cask "aerospace"
-cask "karabiner-elements"
-brew "skhd"
-
-cask "arc"
-
-cask "visual-studio-code"
-cask "cursor"
-
-brew "fish"
-brew "zoxide"
+{{ range .packages.darwin.brews -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.casks -}}
+cask {{ . | quote }}
+{{ end -}}
 EOF
+
 {{ end -}}
