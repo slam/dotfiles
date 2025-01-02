@@ -13,3 +13,8 @@ packages:
       - "cursor"
       - "karabiner-elements"
       - "visual-studio-code"
+  python:
+    uv:
+      tools:
+        - "llm"
+        - "files-to-prompt"

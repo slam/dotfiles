@@ -11,3 +11,7 @@ cask {{ . | quote }}
 EOF
 
 {{ end -}}
+
+{{ range .packages.python.uv.tools -}}
+uv tool install {{ . | quote }}
+{{ end -}}
