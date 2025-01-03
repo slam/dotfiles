@@ -2,6 +2,7 @@ packages:
   darwin:
     brews:
       - "fish"
+      - "fzf"
       - "skhd"
       - "uv"
       - "zoxide"
