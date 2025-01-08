@@ -10,13 +10,13 @@ tmux
 zsh
 
 # Ignore non-macOS files.
-{{ if ne .chezmoi.os "darwin" -}}
+{{- if ne .chezmoi.os "darwin" -}}
 # brew bundles
-run_once_before_install-packages-darwin.sh.tmpl
+install-packages-darwin.sh
 
 # aerospace
-dot_aerospace.toml
-dot_skhdrc
-private_dot_config/private_karabiner
+.aerospace.toml
+.skhdrc
+.config/karabiner
 
 {{- end }}
