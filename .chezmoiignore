@@ -10,7 +10,7 @@ tmux
 zsh
 
 # Ignore non-macOS files.
-{{- if ne .chezmoi.os "darwin" -}}
+{{ if ne .chezmoi.os "darwin" -}}
 # brew bundles
 install-packages-darwin.sh
 
@@ -18,5 +18,4 @@ install-packages-darwin.sh
 .aerospace.toml
 .skhdrc
 .config/karabiner
-
-{{- end -}}
+{{- end}}
