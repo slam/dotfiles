@@ -12,6 +12,7 @@ packages:
       - "aerospace"
       - "arc"
       - "cursor"
+      - "ghostty"
       - "karabiner-elements"
       - "visual-studio-code"
   python:
