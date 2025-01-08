@@ -1,4 +1,6 @@
+{{- if eq .chezmoi.os "darwin" -}}
 eval "$(/opt/homebrew/bin/brew shellenv)"
+{{- end -}}
 
 if command -v zoxide > /dev/null
     zoxide init fish | source
