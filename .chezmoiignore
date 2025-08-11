@@ -1,21 +1,26 @@
 README.md
+CLAUDE.md
 
 # Ignore all the old dotfile setup.
 git
 install.sh
 kitty
-nvim
 rust-toolchain
 tmux
 zsh
 
-# Ignore non-macOS files.
+# Ignore Mac-specific files on non-macOS systems
 {{ if ne .chezmoi.os "darwin" -}}
-# brew bundles
-install-packages-darwin.sh
+# Package installation
+run_once_before_install-packages-darwin.sh.tmpl
 
-# aerospace
-.aerospace.toml
-.skhdrc
-.config/karabiner
+# macOS window managers and utilities
+dot_aerospace.toml
+dot_skhdrc
+
+# macOS keyboard customization
+private_dot_config/private_karabiner
+
+# macOS application support (includes Ghostty)
+private_Library
 {{- end}}
