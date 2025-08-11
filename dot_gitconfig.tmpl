@@ -3,15 +3,27 @@
   email = slam@users.noreply.github.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+vxSFbVL55Azp4cIz8MYQYgCmkiMuDEsCdBN7QEx8D
 [core]
+  {{ if eq .chezmoi.os "darwin" -}}
   editor = code --wait
+  {{- else -}}
+  editor = vscodium-electron --wait
+  {{- end }}
 [diff]
   tool = vscode
 [difftool "vscode"]
+  {{ if eq .chezmoi.os "darwin" -}}
   cmd = code --wait --diff $LOCAL $REMOTE
+  {{- else -}}
+  cmd = vscodium-electron --wait --diff $LOCAL $REMOTE
+  {{- end }}
 [merge]
   tool = vscode
 [mergetool "vscode"]
+  {{ if eq .chezmoi.os "darwin" -}}
   cmd = code --wait $MERGED
+  {{- else -}}
+  cmd = vscodium-electron --wait $MERGED
+  {{- end }}
 [init]
 	defaultBranch = main
 [include]
