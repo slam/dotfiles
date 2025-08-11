@@ -1,0 +1,53 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.osRelease.id "arch" -}}
+#!/bin/bash
+
+# Install pacman packages
+{{- if .packages.arch.pacman }}
+echo "Installing pacman packages..."
+sudo pacman -S --needed --noconfirm \
+{{- range .packages.arch.pacman }}
+  {{ . }} \
+{{- end }}
+  2>/dev/null || true
+{{- end }}
+
+# Install AUR packages (requires yay or paru)
+{{- if .packages.arch.aur }}
+if command -v yay &> /dev/null; then
+  echo "Installing AUR packages with yay..."
+  yay -S --needed --noconfirm \
+{{- range .packages.arch.aur }}
+    {{ . }} \
+{{- end }}
+    2>/dev/null || true
+elif command -v paru &> /dev/null; then
+  echo "Installing AUR packages with paru..."
+  paru -S --needed --noconfirm \
+{{- range .packages.arch.aur }}
+    {{ . }} \
+{{- end }}
+    2>/dev/null || true
+else
+  echo "Warning: No AUR helper found (yay or paru). Skipping AUR packages."
+  echo "AUR packages to install manually:"
+{{- range .packages.arch.aur }}
+  echo "  - {{ . }}"
+{{- end }}
+fi
+{{- end }}
+
+{{- end }}
+{{- end }}
+
+# Install Python tools with uv (cross-platform)
+{{- if .packages.python.uv.tools }}
+if command -v uv &> /dev/null; then
+  echo "Installing Python tools with uv..."
+{{- range .packages.python.uv.tools }}
+  uv tool install {{ . | quote }}
+{{- end }}
+else
+  echo "Warning: uv not found. Skipping Python tools installation."
+fi
+{{- end }}

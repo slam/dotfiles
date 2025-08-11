@@ -1,4 +1,10 @@
 packages:
+  arch:
+    pacman: []
+    aur:
+      - "ghostty"
+      - "uv"
+      - "vscodium-electron-bin"
   darwin:
     brews:
       - "fish"

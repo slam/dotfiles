@@ -22,3 +22,8 @@ Library
 .config/nvim
 .config/fish
 {{- end}}
+
+# Ignore Arch-specific files on non-Arch systems
+{{ if or (ne .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") -}}
+install-packages-arch.sh
+{{- end}}
