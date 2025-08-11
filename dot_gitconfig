@@ -1,0 +1,26 @@
+[user]
+  name = Sahn Lam
+  email = slam@users.noreply.github.com
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE+vxSFbVL55Azp4cIz8MYQYgCmkiMuDEsCdBN7QEx8D
+[core]
+  editor = code --wait
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[init]
+	defaultBranch = main
+[include]
+  path = ~/.gitconfig.local
+[rerere]
+	enabled = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true

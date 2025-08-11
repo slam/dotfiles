@@ -11,6 +11,16 @@ if status is-interactive
     set -g fish_key_bindings fish_vi_key_bindings
 end
 
+# Google Cloud SDK path setup
+if test -f '/Users/slam/google-cloud-sdk/path.fish.inc'
+    source '/Users/slam/google-cloud-sdk/path.fish.inc'
+end
+
+# Google Cloud SDK completions
+if test -f '/Users/slam/google-cloud-sdk/completion.fish.inc'
+    source '/Users/slam/google-cloud-sdk/completion.fish.inc'
+end
+
 # uv
 fish_add_path "/Users/slam/.local/bin"
 

@@ -148,9 +148,9 @@ esc = ['reload-config', 'mode main']
 esc = 'mode main'
 
 [workspace-to-monitor-force-assignment]
-E = ['Built-in Retina Display', 'ASUS']
-Q = ['ASUS', 'Built-in Retina Display']
-W = ['Elgato Prom.', 'Built-in Retina Display']
+E = ['Sidecar Display.*', 'Built-in Retina Display', 'ASUS']
+Q = ['ASUS', 'Sidecar Display.*', 'Built-in Retina Display']
+W = ['Elgato Prom.', 'Sidecar Display.*', 'Built-in Retina Display']
 
 [[on-window-detected]]
 if.app-id = 'com.apple.MobileSMS'
@@ -173,8 +173,12 @@ if.app-id = 'com.apple.Notes'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = 'move-node-to-workspace 1'
+if.app-id = 'com.anthropic.claudefordesktop'
+run = 'move-node-to-workspace 6'
+
+[[on-window-detected]]
+if.app-id = 'ai.perplexity.mac'
+run = 'move-node-to-workspace 6'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
