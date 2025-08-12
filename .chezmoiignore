@@ -26,4 +26,7 @@ Library
 # Ignore Arch-specific files on non-Arch systems
 {{ if or (ne .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") -}}
 install-packages-arch.sh
+
+# Hyprland configuration (Arch/Wayland specific)
+.config/hypr
 {{- end}}
