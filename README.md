@@ -2,6 +2,28 @@
 
 My dotfiles managed with [chezmoi](https://www.chezmoi.io/) (migrated November 2024).
 
+Supports:
+- **macOS** - Window management with AeroSpace, development tools
+- **Omarchy** - Hyprland, Waybar, Hyper key via interception-tools
+
+## Setting up Omarchy
+
+### Quick Setup
+
+```bash
+# Install chezmoi
+sudo pacman -S chezmoi
+
+# Initialize and apply dotfiles
+chezmoi init --apply slam/dotfiles
+```
+
+This will:
+- Install packages via pacman and AUR (yay)
+- Configure Hyper key (Caps Lock = Escape/MOD5)
+- Set up Hyprland with custom keybindings
+- Configure terminal (Ghostty), editor (VSCodium)
+
 ## Setting up a new Mac
 
 ### Prerequisites

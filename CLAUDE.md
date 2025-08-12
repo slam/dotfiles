@@ -4,7 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a dotfiles repository managed by **chezmoi** (migrated November 2024). It configures a macOS development environment with window management, shell, and development tools.
+This is a dotfiles repository managed by **chezmoi** (migrated November 2024). It supports both macOS and Omarchy (Arch Linux) with platform-specific configurations for window management, shell, and development tools.
+
+## Critical Rules for Claude
+
+1. **NEVER commit unless explicitly asked** - Do not proactively commit changes. Wait for explicit user request.
+2. **ALWAYS check platform compatibility** - When adding new configs, ensure they're added to `.chezmoiignore` for incompatible platforms
+3. **Use chezmoi commands** - Always use `chezmoi add`, `chezmoi edit`, etc. instead of directly manipulating files
+4. **Platform testing** - Consider both macOS and Omarchy when making changes
 
 ## Essential Commands
 
@@ -20,20 +27,30 @@ chezmoi diff   # Preview changes before applying
 # To add packages: edit the YAML file, then run:
 chezmoi apply  # Automatically runs package installation
 
-# Manual package updates:
+# macOS:
 brew update && brew upgrade
+
+# Omarchy:
+yay -Syu
+
+# Python tools (both platforms):
 uv tool upgrade --all
 ```
 
 ### Window Manager Controls
-```bash
-# AeroSpace (tiling window manager)
-# Config: dot_aerospace.toml
-# Reload: hyper+shift+r (hyper = ralt+rctrl+rshift)
 
-# skhd (hotkey daemon)
-# Config: dot_skhdrc
-# Reload: brew services restart skhd
+#### macOS (AeroSpace + skhd)
+```bash
+# Config: dot_aerospace.toml, dot_skhdrc
+# Reload AeroSpace: hyper+shift+r
+# Reload skhd: brew services restart skhd
+```
+
+#### Omarchy (Hyprland)
+```bash
+# Config: .config/hypr/*.conf
+# Reload: hyprctl reload
+# Hyper key: Caps Lock (tap=Esc, hold=MOD5) via interception-tools
 ```
 
 ## Architecture
@@ -45,24 +62,54 @@ uv tool upgrade --all
 - **Auto-installation**: `run_once_before_install-packages-darwin.sh.tmpl` runs on first apply
 
 ### Key Configuration Files
-- `dot_aerospace.toml` - Window manager with workspace rules and app assignments
-- `dot_skhdrc` - Keyboard shortcuts using hyper key (ralt+rctrl+rshift)
+
+#### macOS
+- `dot_aerospace.toml` - Tiling window manager with workspace rules
+- `dot_skhdrc` - Keyboard shortcuts using hyper key
+- `.config/karabiner/` - Caps Lock to Hyper key mapping
+
+#### Omarchy
+- `.config/hypr/` - Hyprland window manager configuration
+- `.config/waybar/` - Status bar configuration
+- `.config/ghostty/` - Terminal emulator configuration
+- `/etc/interception/` - Hyper key setup (managed by install script)
+
+#### Both Platforms
+- `dot_gitconfig.tmpl` - Git with OS-specific editor and SSH signing
 - `private_dot_config/private_fish/config.fish.tmpl` - Fish shell with vi bindings
-- `git/.gitconfig` - Git with SSH signing via 1Password
 
 ### Window Management Architecture
-- **Hyper key**: Karabiner maps caps_lock to hyper (ralt+rctrl+rshift)
-- **Workspaces**: 1-9, A, Q, W, E with specific monitor assignments
-- **Navigation**: hjkl for focus, Shift+hjkl for moving windows
-- **App rules**: Automatic workspace assignments (e.g., Discord→E, Notes→1)
+
+#### Hyper Key Implementation
+- **macOS**: Karabiner-Elements maps Caps Lock to Ctrl+Alt+Shift+Cmd
+- **Omarchy**: interception-tools maps Caps Lock to Escape (tap) / MOD5 (hold)
+
+#### Navigation (both platforms)
+- **Focus**: Hyper + hjkl
+- **Move windows**: Hyper + Shift + hjkl
+- **Workspaces**: Hyper + 1-9, 0
 
 ## Development Patterns
 
 ### Adding New Configurations
-1. Create file with appropriate prefix (`dot_`, `private_`)
-2. Add `.tmpl` suffix if OS-specific logic needed
-3. Use template variables: `{{ .chezmoi.os }}`, `{{ .packages.* }}`
-4. Run `chezmoi apply` to deploy
+1. Add existing files to chezmoi:
+   ```bash
+   chezmoi add ~/.config/someapp/config
+   chezmoi add --encrypt ~/.ssh/config  # For sensitive files
+   ```
+2. Edit managed files:
+   ```bash
+   chezmoi edit ~/.config/someapp/config
+   ```
+3. For OS-specific configs, convert to template:
+   ```bash
+   chezmoi add --template ~/.gitconfig
+   ```
+4. Apply changes:
+   ```bash
+   chezmoi diff    # Preview changes
+   chezmoi apply   # Apply changes
+   ```
 
 ### Template Conditionals
 ```go
@@ -75,12 +122,16 @@ uv tool upgrade --all
 1. Define in `.chezmoidata/packages.yaml`:
    - `darwin.brews` for Homebrew formulas
    - `darwin.casks` for GUI applications
-   - `python.uv.tools` for Python tools
-2. Template automatically installs via `brew bundle` and `uv tool install`
+   - `arch.pacman` for official Arch packages
+   - `arch.aur` for AUR packages
+   - `python.uv.tools` for Python tools (cross-platform)
+2. Install scripts run automatically:
+   - macOS: `run_once_before_install-packages-darwin.sh.tmpl`
+   - Omarchy: `run_once_before_install-packages-arch.sh.tmpl`
 
 ## Important Notes
 
-- **Migration Status**: Legacy directories (hammerspoon/, kitty/, nvim/, etc.) are ignored via `.chezmoiignore`
 - **File Permissions**: `private_` prefix sets files to chmod 600 (owner read/write only)
-- **1Password Integration**: Git signing requires 1Password CLI
-- **OS Support**: Primarily macOS-focused with conditional Linux support via templates
+- **1Password Integration**: Git signing requires 1Password CLI (both platforms)
+- **OS Detection**: Templates use `{{ .chezmoi.os }}` and `{{ .chezmoi.osRelease.id }}`
+- **Platform-specific files**: Managed via `.chezmoiignore` with template conditionals
