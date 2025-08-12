@@ -2,6 +2,7 @@ packages:
   arch:
     pacman:
       - "discord"
+      - "keyd"
       - "tailscale"
     aur:
       - "ghostty"

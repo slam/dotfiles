@@ -40,6 +40,41 @@ fi
 {{- end }}
 {{- end }}
 
+# Configure keyd for Hyper key
+if command -v keyd &> /dev/null; then
+  echo "Configuring keyd for Hyper key..."
+  
+  # Create keyd config if it doesn't exist
+  if [ ! -f /etc/keyd/default.conf ]; then
+    sudo mkdir -p /etc/keyd
+    sudo tee /etc/keyd/default.conf > /dev/null << 'EOF'
+[ids]
+*
+
+[main]
+# Caps Lock as Escape (tap) / Hyper (hold)
+capslock = overload(hyper, esc)
+
+# Define the hyper layer - all modifiers pressed (Ctrl+Meta+Alt+Shift)
+[hyper:C-M-A-S]
+EOF
+    
+    # Add current user to keyd group if not already added
+    if ! groups | grep -q keyd; then
+      sudo usermod -aG keyd "$USER"
+      echo "Added $USER to keyd group (re-login required for group to take effect)"
+    fi
+    
+    # Enable keyd service if not already enabled
+    if ! systemctl is-enabled keyd &> /dev/null; then
+      sudo systemctl enable --now keyd
+      echo "Enabled keyd service"
+    fi
+  else
+    echo "keyd already configured, skipping..."
+  fi
+fi
+
 # Install Python tools with uv (cross-platform)
 {{- if .packages.python.uv.tools }}
 if command -v uv &> /dev/null; then
