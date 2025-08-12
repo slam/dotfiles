@@ -40,3 +40,4 @@ palette = 15=#acb0d0
 
 # Selection color
 selection-background = 7aa2f7
+keybind = shift+enter=text:\n

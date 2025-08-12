@@ -4,8 +4,13 @@
 # You must relaunch Hyprland after changing any envs (use Super+Esc, then Relaunch)
 
 # Optimized for retina-class 2x displays, like 13" 2.8K, 27" 5K, 32" 6K.
+{{ if eq .chezmoi.hostname "omarchy-amd" -}}
+env = GDK_SCALE,1.666667
+monitor=,preferred,auto,1.666667
+{{- else -}}
 env = GDK_SCALE,1.25
 monitor=,preferred,auto,1.25
+{{- end }}
 
 # Good compromise for 27" or 32" 4K monitors (but fractional!)
 # env = GDK_SCALE,1.75
