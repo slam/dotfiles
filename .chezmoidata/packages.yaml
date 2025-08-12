@@ -1,6 +1,8 @@
 packages:
   arch:
-    pacman: []
+    pacman:
+      - "discord"
+      - "tailscale"
     aur:
       - "ghostty"
       - "uv"
