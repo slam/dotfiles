@@ -8,31 +8,18 @@ ralt + rctrl + rshift - b : aerospace layout tiles horizontal vertical
 ralt + rctrl + rshift - f : aerospace layout floating tiling
 ralt + rctrl + rshift - m : aerospace layout h_accordion
 
-ralt + rctrl + rshift - return : yabai -m window --swap largest || yabai -m window --swap smallest && yabai -m window --focus largest
-
 ralt + rctrl + rshift - h : aerospace focus left --boundaries-action wrap-around-the-workspace
 ralt + rctrl + rshift - l : aerospace focus right --boundaries-action wrap-around-the-workspace
 ralt + rctrl + rshift - k : aerospace focus up --boundaries-action wrap-around-the-workspace
 ralt + rctrl + rshift - j : aerospace focus down --boundaries-action wrap-around-the-workspace
 
-ralt + rctrl + rshift - u : yabai -m window --focus "stack.prev" || yabai -m window --focus "stack.last"
-ralt + rctrl + rshift - d : yabai -m window --focus "stack.next" || yabai -m window --focus "stack.first"
-
-ralt + rctrl + rshift - 0x18       : aerospace resize smart +50
-ralt + rctrl + rshift - 0x1B       : aerospace resize smart -50
-ralt + rctrl + rshift - 0x33       : aerospace balance-sizes
-ralt + rctrl + rshift - r          : aerospace flatten-workspace-tree
+ralt + rctrl + rshift - 0x18 : aerospace resize smart +50
+ralt + rctrl + rshift - 0x1B : aerospace resize smart -50
+ralt + rctrl + rshift - 0x33 : aerospace balance-sizes
+ralt + rctrl + rshift - r    : aerospace flatten-workspace-tree
 
 ralt + rctrl + rshift - 0x30          : aerospace move-workspace-to-monitor --wrap-around next
 ralt + rctrl + rshift + lshift - 0x30 : aerospace move-workspace-to-monitor --wrap-around prev
-
-ralt + rctrl + rshift - s          : yabai -m window --toggle split
-ralt + rctrl + rshift + lshift - s : yabai -m window --toggle sticky
-ralt + rctrl + rshift + lshift - f : yabai -m window --toggle float
-ralt + rctrl + rshift - z          : yabai -m window --toggle zoom-parent
-ralt + rctrl + rshift + lshift - z : yabai -m window --toggle zoom-fullscreen
-# ralt + rctrl + rshift - x          : aerospace move left || aerospace move right
-# ralt + rctrl + rshift - y          : yabai -m space --mirror y-axis
 
 ralt + rctrl + rshift + lshift - h : aerospace move left
 ralt + rctrl + rshift + lshift - l : aerospace move right
@@ -43,16 +30,6 @@ ralt + rctrl + rshift + lctrl - h : aerospace join-with left
 ralt + rctrl + rshift + lctrl - l : aerospace join-with right
 ralt + rctrl + rshift + lctrl - k : aerospace join-with up
 ralt + rctrl + rshift + lctrl - j : aerospace join-with down
-
-ralt + rctrl + rshift + lcmd - h : yabai -m window west --resize right:-20:0 2> /dev/null || yabai -m window --resize right:-20:0
-ralt + rctrl + rshift + lcmd - j : yabai -m window north --resize bottom:0:20 2> /dev/null || yabai -m window --resize bottom:0:20
-ralt + rctrl + rshift + lcmd - k : yabai -m window south --resize top:0:-20 2> /dev/null || yabai -m window --resize top:0:-20
-ralt + rctrl + rshift + lcmd - l : yabai -m window east --resize left:20:0 2> /dev/null || yabai -m window --resize left:20:0
-
-ralt + rctrl + rshift + lcmd - 1 : yabai -m window --grid 2:2:0:0:1:1
-ralt + rctrl + rshift + lcmd - 2 : yabai -m window --grid 2:2:1:0:1:1
-ralt + rctrl + rshift + lcmd - 3 : yabai -m window --grid 2:2:0:1:1:1
-ralt + rctrl + rshift + lcmd - 4 : yabai -m window --grid 2:2:1:1:1:1
 
 # Switching desktop
 ralt + rctrl + rshift - o : aerospace workspace-back-and-forth
@@ -88,22 +65,6 @@ ralt + rctrl + rshift + lshift - 0 : aerospace move-node-to-workspace A
 ralt + rctrl + rshift + lshift - q : aerospace move-node-to-workspace Q
 ralt + rctrl + rshift + lshift - w : aerospace move-node-to-workspace W
 ralt + rctrl + rshift + lshift - e : aerospace move-node-to-workspace E
-
-#ralt + rctrl + rshift - w : yabai -m display --focus 1
-#ralt + rctrl + rshift - q : yabai -m display --focus 2
-#ralt + rctrl + rshift - e : yabai -m display --focus 3
-
-#ralt + rctrl + rshift + lshift - w : yabai -m window --display 1
-#ralt + rctrl + rshift + lshift - q : yabai -m window --display 2
-#ralt + rctrl + rshift + lshift - e : yabai -m window --display 3
-
-# ralt + rctrl + rshift + lcmd - w : yabai -m space --display 1 && yabai -m display --focus 1
-# ralt + rctrl + rshift + lcmd - q : yabai -m space --display 2 && yabai -m display --focus 2
-# ralt + rctrl + rshift + lcmd - e : yabai -m space --display 3 && yabai -m display --focus 3
-
-
-ralt + rctrl + rshift + lshift - d : ln -sf $HOME/src/github.com/nikitabobko/AeroSpace/.debug/aerospace $HOME/bin/aerospace
-ralt + rctrl + rshift + lctrl - d : ln -sf $HOME/.bin/aerospace $HOME/bin/aerospace
 
 ralt + rctrl + rshift + lshift - x : aerospace enable toggle
 ralt + rctrl + rshift + lshift - r : aerospace reload-config
