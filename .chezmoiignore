@@ -32,3 +32,4 @@ install-packages-arch.sh
 .config/waybar
 .config/ghostty
 {{- end}}
+key.txt.age
