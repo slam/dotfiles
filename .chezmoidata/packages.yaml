@@ -21,7 +21,6 @@ packages:
       - "1password-cli"
       - "aerospace"
       - "arc"
-      - "cursor"
       - "ghostty"
       - "karabiner-elements"
       - "visual-studio-code"

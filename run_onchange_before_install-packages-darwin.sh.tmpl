@@ -1,7 +1,7 @@
-{{- if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --file=/dev/stdin <<EOF
 {{ range .packages.darwin.brews -}}
 brew {{ . | quote }}
 {{ end -}}
@@ -10,8 +10,8 @@ cask {{ . | quote }}
 {{ end -}}
 EOF
 
-{{ end -}}
-
 {{ range .packages.python.uv.tools -}}
 uv tool install {{ . | quote }}
+{{ end -}}
+
 {{ end -}}
