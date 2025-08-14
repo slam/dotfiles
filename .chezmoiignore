@@ -11,6 +11,7 @@ install-packages-darwin.sh
 
 # macOS window managers and utilities
 .aerospace.toml
+.config/borders
 .skhdrc
 
 # macOS keyboard customization
