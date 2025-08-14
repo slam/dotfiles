@@ -10,7 +10,10 @@ packages:
       - "uv"
       - "vscodium-electron-bin"
   darwin:
+    taps:
+      - "FelixKratz/formulae"
     brews:
+      - "borders"
       - "fish"
       - "fzf"
       - "skhd"
