@@ -13,7 +13,7 @@ packages:
     taps:
       - "FelixKratz/formulae"
     brews:
-      - "borders"
+      - "felixkratz/formulae/borders"
       - "fish"
       - "fzf"
       - "skhd"
