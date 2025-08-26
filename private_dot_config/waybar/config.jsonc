@@ -4,14 +4,8 @@
   "position": "top",
   "spacing": 0,
   "height": 26,
-  "modules-left": [
-    "custom/omarchy",
-    "hyprland/workspaces"
-  ],
-  "modules-center": [
-    "clock",
-    "custom/update"
-  ],
+  "modules-left": ["custom/omarchy", "hyprland/workspaces"],
+  "modules-center": ["clock", "custom/update"],
   "modules-right": [
     "group/tray-expander",
     "bluetooth",
@@ -51,16 +45,18 @@
     }
   },
   "custom/omarchy": {
-    "format": "",
-    "on-click": "~/.local/share/omarchy/bin/omarchy-menu",
+    "format": "<span font='omarchy'>\ue900</span>",
+    "on-click": "omarchy-menu",
     "tooltip-format": "Omarchy Menu\n\nSuper + Alt + Space"
   },
   "custom/update": {
     "format": "",
-    "exec": "~/.local/share/omarchy/bin/omarchy-update-available",
-    "on-click": "alacritty --class Omarchy --title Omarchy -e ~/.local/share/omarchy/bin/omarchy-update",
+    "exec": "omarchy-update-available",
+    "on-click": "alacritty --class Omarchy --title Omarchy -e omarchy-update",
+    "tooltip-format": "Omarchy update available",
     "interval": 3600
   },
+
   "cpu": {
     "interval": 5,
     "format": "󰍛",
@@ -70,14 +66,14 @@
     "format": "{:%A %H:%M}",
     "format-alt": "{:%d %B W%V %Y}",
     "tooltip": false,
-    "on-click-right": "~/.local/share/omarchy/bin/omarchy-cmd-tzupdate"
+    "on-click-right": "omarchy-cmd-tzupdate"
   },
   "network": {
-    "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-    "format" : "{icon}",
-    "format-wifi" : "{icon}",
-    "format-ethernet" : "󰀂",
-    "format-disconnected" : "󰖪",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰖪",
     "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
@@ -88,15 +84,11 @@
   "battery": {
     "format": "{capacity}% {icon}",
     "format-discharging": "{icon}",
-    "format-charging":    "{icon}",
-    "format-plugged":     "",
+    "format-charging": "{icon}",
+    "format-plugged": "",
     "format-icons": {
-      "charging": [
-        "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
-      ],
-      "default": [
-        "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-      ]
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "format-full": "󰂅",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
@@ -131,10 +123,7 @@
       "transition-duration": 600,
       "children-class": "tray-group-item"
     },
-    "modules": [
-      "custom/expand-icon",
-    "tray"
-    ]
+    "modules": ["custom/expand-icon", "tray"]
   },
   "custom/expand-icon": {
     "format": " ",
