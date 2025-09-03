@@ -7,6 +7,9 @@
 {{ if eq .chezmoi.hostname "omarchy-amd" -}}
 env = GDK_SCALE,1.666667
 monitor=,preferred,auto,1.666667
+{{- else if eq .chezmoi.hostname "x1" -}}
+env = GDK_SCALE,2.0
+monitor=,preferred,auto,2.0
 {{- else -}}
 env = GDK_SCALE,1.25
 monitor=,preferred,auto,1.25
