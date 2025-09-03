@@ -22,7 +22,20 @@ This will:
 - Install packages via pacman and AUR (yay)
 - Configure Hyper key (Caps Lock = Escape/MOD5)
 - Set up Hyprland with custom keybindings
-- Configure terminal (Ghostty), editor (VSCodium)
+
+### 1Password Setup with 2FA
+
+For 1Password to store its own 2FA token on Omarchy, you need to set up a password keyring:
+
+1. **Create a password keyring using Seahorse**:
+   - Launch Seahorse (GNOME Passwords and Keys)
+   - Click the + sign, choose "Password keyring"
+   - Name it anything you like
+   - Right-click the keyring and set as default
+
+2. **Configure 1Password**:
+   - 1Password will now be able to store its 2FA token in the keyring
+   - This enables persistent login without re-entering 2FA on each restart
 
 ## Setting up a new Mac
 

@@ -3,9 +3,9 @@ packages:
     pacman:
       - "discord"
       - "interception-tools"
+      - "seahorse"
       - "tailscale"
     aur:
-      - "ghostty"
       - "interception-dual-function-keys"
       - "uv"
       - "vscodium-electron-bin"
