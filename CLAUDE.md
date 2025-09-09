@@ -42,7 +42,7 @@ uv tool upgrade --all
 #### macOS (AeroSpace + skhd)
 ```bash
 # Config: dot_aerospace.toml, dot_skhdrc
-# Reload AeroSpace: hyper+shift+r
+# Reload AeroSpace: Cmd+Ctrl+Alt+Shift+R
 # Reload skhd: brew services restart skhd
 ```
 
@@ -50,8 +50,30 @@ uv tool upgrade --all
 ```bash
 # Config: .config/hypr/*.conf
 # Reload: hyprctl reload
-# Hyper key: Caps Lock (tap=Esc, hold=MOD5) via interception-tools
+# MOD5 key: Caps Lock (tap=Esc, hold=MOD5) via interception-tools + XKB
 ```
+
+##### MOD5 Modifier Key Technical Details
+The MOD5 modifier on Omarchy works through a two-layer system:
+
+1. **interception-tools** (`/etc/interception/dual-function-keys.yaml`):
+   - Intercepts physical Caps Lock key at the kernel level
+   - TAP: Sends KEY_ESC (for vim-style escape)
+   - HOLD: Sends KEY_CAPSLOCK (passes through to XKB)
+
+2. **XKB Configuration** (`.config/hypr/input.conf`):
+   - `kb_options = lv3:caps_switch` maps Caps Lock to ISO_Level3_Shift
+   - ISO_Level3_Shift uses the LevelThree virtual modifier
+   - LevelThree is conventionally bound to the real modifier MOD5
+   - Result: Holding Caps Lock = MOD5 for Hyprland bindings
+
+This setup provides:
+- Dual-function Caps Lock (Escape on tap, MOD5 on hold)
+- Clean separation from Right Alt (preserved for normal use)
+- Direct MOD5 access for all window management keybindings in `bindings.conf`
+- An extra modifier that doesn't conflict with standard application shortcuts
+
+Note: While called "hyper" colloquially for its similar purpose to the historical Hyper modifier key, this is technically the MOD5 modifier in X11/XKB.
 
 ## Architecture
 
@@ -80,14 +102,14 @@ uv tool upgrade --all
 
 ### Window Management Architecture
 
-#### Hyper Key Implementation
-- **macOS**: Karabiner-Elements maps Caps Lock to Ctrl+Alt+Shift+Cmd
-- **Omarchy**: interception-tools maps Caps Lock to Escape (tap) / MOD5 (hold)
+#### Modifier Key Implementation
+- **macOS**: Karabiner-Elements maps Caps Lock to Ctrl+Alt+Shift+Cmd (all modifiers = "hyper")
+- **Omarchy**: interception-tools + XKB maps Caps Lock to Escape (tap) / MOD5 (hold)
 
 #### Navigation (both platforms)
-- **Focus**: Hyper + hjkl
-- **Move windows**: Hyper + Shift + hjkl
-- **Workspaces**: Hyper + 1-9, 0
+- **Focus**: MOD5/Hyper + hjkl
+- **Move windows**: MOD5/Hyper + Shift + hjkl
+- **Workspaces**: MOD5/Hyper + 1-9, 0
 
 ## Development Patterns
 

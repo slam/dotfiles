@@ -4,7 +4,7 @@ My dotfiles managed with [chezmoi](https://www.chezmoi.io/) (migrated November 2
 
 Supports:
 - **macOS** - Window management with AeroSpace, development tools
-- **Omarchy** - Hyprland, Waybar, Hyper key via interception-tools
+- **Omarchy** - Hyprland, Waybar, MOD5 modifier key via interception-tools
 
 ## Setting up Omarchy
 
@@ -20,8 +20,28 @@ chezmoi init --apply slam/dotfiles
 
 This will:
 - Install packages via pacman and AUR (yay)
-- Configure Hyper key (Caps Lock = Escape/MOD5)
+- Configure MOD5 modifier key (Caps Lock = Escape/MOD5)
 - Set up Hyprland with custom keybindings
+
+### MOD5 Modifier Key Technical Details
+
+The MOD5 modifier (serving as a "hyper-style" key for window management) provides dual-function Caps Lock through a two-layer system:
+
+1. **interception-tools** (kernel level):
+   - Intercepts physical Caps Lock key
+   - TAP: Sends Escape (for vim-style workflows)
+   - HOLD: Sends Caps Lock to XKB
+
+2. **XKB Configuration** (Hyprland):
+   - `kb_options = lv3:caps_switch` in `.config/hypr/input.conf`
+   - Maps Caps Lock to ISO_Level3_Shift (see `/usr/share/X11/xkb/symbols/level3`)
+   - ISO_Level3_Shift conventionally maps to MOD5 in XKB
+   - MOD5 is then used for window management keybindings
+
+Benefits:
+- Clean MOD5 access for window management
+- Provides an extra modifier that doesn't conflict with application shortcuts
+- Similar to macOS's Cmd+Ctrl+Alt+Shift combination
 
 ### 1Password Setup with 2FA
 

@@ -5,6 +5,7 @@ packages:
       - "interception-tools"
       - "seahorse"
       - "tailscale"
+      - "wtype"
     aur:
       - "interception-dual-function-keys"
       - "uv"
