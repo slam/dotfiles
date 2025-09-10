@@ -32,5 +32,8 @@ install-packages-arch.sh
 .config/hypr
 .config/waybar
 .config/ghostty
+
+# Linux key remapping
+.config/keyd
 {{- end}}
 key.txt.age

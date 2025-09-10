@@ -40,43 +40,45 @@ fi
 {{- end }}
 {{- end }}
 
-# Configure interception-tools for Hyper key
-if command -v intercept &> /dev/null && command -v dual-function-keys &> /dev/null; then
-  echo "Setting up interception-tools..."
+# Configure keyd
+if command -v keyd &> /dev/null; then
+  echo "Setting up keyd..."
   
-  # Create configs in /etc/interception if they don't exist
-  if [ ! -f /etc/interception/dual-function-keys.yaml ]; then
-    sudo mkdir -p /etc/interception
-    
-    # Create dual-function-keys config
-    sudo tee /etc/interception/dual-function-keys.yaml > /dev/null << 'EOF'
-TIMING:
-  TAP_MILLISEC: 200
-  DOUBLE_TAP_MILLISEC: 0
+  # Create global keyd config
+  sudo mkdir -p /etc/keyd
+  sudo tee /etc/keyd/default.conf > /dev/null << 'EOF'
+[ids]
+*
 
-MAPPINGS:
-  - KEY: KEY_CAPSLOCK
-    TAP: KEY_ESC
-    HOLD: KEY_CAPSLOCK  # Acts as MOD5 in Hyprland with lv3:caps_switch
+[main]
+# Caps Lock dual function: tap (<100ms) for Escape, hold for Caps Lock (which becomes MOD5 via XKB)
+capslock = timeout(esc, 100, capslock)
+
+# Global Alt+Shift+bracket for tab switching (works everywhere)
+[alt+shift]
+[ = C-pageup
+] = C-pagedown
+
+# Note: Alt+bracket (without Shift) for browser back/forward is handled 
+# per-application via keyd-application-mapper (see ~/.config/keyd/app.conf)
 EOF
-    
-    # Create udevmon config
-    sudo tee /etc/interception/udevmon.yaml > /dev/null << 'EOF'
-- JOB: intercept -g $DEVNODE | dual-function-keys -c /etc/interception/dual-function-keys.yaml | uinput -d $DEVNODE
-  DEVICE:
-    EVENTS:
-      EV_KEY: [KEY_CAPSLOCK]
-EOF
-    
-    echo "Created interception-tools configs"
+  
+  echo "Updated keyd config"
+  
+  # Enable keyd service if not already enabled
+  if ! systemctl is-enabled keyd &> /dev/null; then
+    sudo systemctl enable --now keyd
+    echo "keyd service enabled and started"
+  else
+    # Reload to apply any config changes
+    sudo keyd reload
+    echo "keyd config reloaded"
   fi
   
-  # Enable udevmon service if not already enabled
-  if ! systemctl is-enabled udevmon &> /dev/null; then
-    sudo systemctl enable --now udevmon
-    echo "udevmon service enabled and started"
-  else
-    echo "udevmon service already enabled"
+  # Add user to keyd group for keyd-application-mapper
+  if ! groups | grep -q keyd; then
+    sudo usermod -aG keyd $USER
+    echo "Added $USER to keyd group (re-login required for group change to take effect)"
   fi
 fi
 

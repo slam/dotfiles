@@ -50,28 +50,28 @@ uv tool upgrade --all
 ```bash
 # Config: .config/hypr/*.conf
 # Reload: hyprctl reload
-# MOD5 key: Caps Lock (tap=Esc, hold=MOD5) via interception-tools + XKB
+# MOD5 key: Caps Lock (tap=Esc, hold=MOD5) via keyd + XKB
 ```
 
 ##### MOD5 Modifier Key Technical Details
 The MOD5 modifier on Omarchy works through a two-layer system:
 
-1. **interception-tools** (`/etc/interception/dual-function-keys.yaml`):
-   - Intercepts physical Caps Lock key at the kernel level
-   - TAP: Sends KEY_ESC (for vim-style escape)
-   - HOLD: Sends KEY_CAPSLOCK (passes through to XKB)
+1. **keyd** (`/etc/keyd/default.conf`):
+   - Handles Caps Lock dual function at the input level
+   - TAP (<100ms): Sends Escape
+   - HOLD (>100ms): Sends Caps Lock (passes through to XKB)
+   - Configuration: `capslock = timeout(esc, 100, capslock)`
 
 2. **XKB Configuration** (`.config/hypr/input.conf`):
    - `kb_options = lv3:caps_switch` maps Caps Lock to ISO_Level3_Shift
-   - ISO_Level3_Shift uses the LevelThree virtual modifier
-   - LevelThree is conventionally bound to the real modifier MOD5
+   - ISO_Level3_Shift conventionally maps to MOD5 in XKB
    - Result: Holding Caps Lock = MOD5 for Hyprland bindings
 
 This setup provides:
 - Dual-function Caps Lock (Escape on tap, MOD5 on hold)
-- Clean separation from Right Alt (preserved for normal use)
-- Direct MOD5 access for all window management keybindings in `bindings.conf`
-- An extra modifier that doesn't conflict with standard application shortcuts
+- Alt+Shift+bracket tab switching (handled by keyd globally)
+- Alt+bracket browser navigation (handled by keyd-application-mapper for Chromium apps)
+- Direct MOD5 access for all window management keybindings in `bindings-custom.conf`
 
 Note: While called "hyper" colloquially for its similar purpose to the historical Hyper modifier key, this is technically the MOD5 modifier in X11/XKB.
 
@@ -94,7 +94,8 @@ Note: While called "hyper" colloquially for its similar purpose to the historica
 - `.config/hypr/` - Hyprland window manager configuration
 - `.config/waybar/` - Status bar configuration
 - `.config/ghostty/` - Terminal emulator configuration
-- `/etc/interception/` - Hyper key setup (managed by install script)
+- `.config/keyd/` - Application-specific key remappings
+- `/etc/keyd/` - Global key remappings (managed by install script)
 
 #### Both Platforms
 - `dot_gitconfig.tmpl` - Git with OS-specific editor and SSH signing
@@ -104,7 +105,7 @@ Note: While called "hyper" colloquially for its similar purpose to the historica
 
 #### Modifier Key Implementation
 - **macOS**: Karabiner-Elements maps Caps Lock to Ctrl+Alt+Shift+Cmd (all modifiers = "hyper")
-- **Omarchy**: interception-tools + XKB maps Caps Lock to Escape (tap) / MOD5 (hold)
+- **Omarchy**: keyd + XKB maps Caps Lock to Escape (tap) / MOD5 (hold)
 
 #### Navigation (both platforms)
 - **Focus**: MOD5/Hyper + hjkl
