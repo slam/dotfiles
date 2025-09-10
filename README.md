@@ -25,23 +25,33 @@ This will:
 
 ### MOD5 Modifier Key Technical Details
 
-The MOD5 modifier (serving as a "hyper-style" key for window management) provides dual-function Caps Lock through a two-layer system:
+The MOD5 modifier (serving as a "hyper-style" key for window management) works through an event processing chain that allows multiple keyboard remapping tools to coexist:
+
+**Event Processing Chain**:
+```
+Physical Keyboard → interception-tools → Virtual Keyboard → keyd → Final Virtual Keyboard → System
+```
 
 1. **interception-tools** (kernel level):
-   - Intercepts physical Caps Lock key
-   - TAP: Sends Escape (for vim-style workflows)
-   - HOLD: Sends Caps Lock to XKB
+   - Intercepts the physical keyboard device exclusively
+   - Processes Caps Lock: TAP → Escape, HOLD → Caps Lock
+   - Creates a virtual keyboard via `uinput` that passes all events downstream
 
-2. **XKB Configuration** (Hyprland):
+2. **keyd** (processes virtual keyboard):
+   - Receives events from interception-tools' virtual keyboard
+   - Handles Alt+bracket remappings for tab switching and browser navigation
+   - Creates its own virtual keyboard for final output
+
+3. **XKB Configuration** (Hyprland):
    - `kb_options = lv3:caps_switch` in `.config/hypr/input.conf`
    - Maps Caps Lock to ISO_Level3_Shift (see `/usr/share/X11/xkb/symbols/level3`)
    - ISO_Level3_Shift conventionally maps to MOD5 in XKB
-   - MOD5 is then used for window management keybindings
 
 Benefits:
-- Clean MOD5 access for window management
-- Provides an extra modifier that doesn't conflict with application shortcuts
-- Similar to macOS's Cmd+Ctrl+Alt+Shift combination
+- No conflicts between tools (each processes a different device in the chain)
+- Reliable dual-function Caps Lock via interception-tools
+- Clean Alt+bracket remappings via keyd
+- MOD5 modifier for window management that doesn't conflict with application shortcuts
 
 ### 1Password Setup with 2FA
 

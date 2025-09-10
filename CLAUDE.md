@@ -50,28 +50,32 @@ uv tool upgrade --all
 ```bash
 # Config: .config/hypr/*.conf
 # Reload: hyprctl reload
-# MOD5 key: Caps Lock (tap=Esc, hold=MOD5) via keyd + XKB
+# MOD5 key: Caps Lock (tap=Esc, hold=MOD5) via interception-tools + XKB
 ```
 
 ##### MOD5 Modifier Key Technical Details
-The MOD5 modifier on Omarchy works through a two-layer system:
+The MOD5 modifier on Omarchy works through an event processing chain:
 
-1. **keyd** (`/etc/keyd/default.conf`):
-   - Handles Caps Lock dual function at the input level
-   - TAP (<100ms): Sends Escape
-   - HOLD (>100ms): Sends Caps Lock (passes through to XKB)
-   - Configuration: `capslock = timeout(esc, 100, capslock)`
+1. **interception-tools** (`/etc/interception/dual-function-keys.yaml`):
+   - Intercepts the physical keyboard (`/dev/input/event3` - "AT Translated Set 2 keyboard")
+   - Processes Caps Lock: TAP (<200ms) → KEY_ESC, HOLD (>200ms) → KEY_CAPSLOCK
+   - Creates a virtual keyboard via `uinput` that passes all events downstream
 
-2. **XKB Configuration** (`.config/hypr/input.conf`):
+2. **keyd** (`/etc/keyd/default.conf`):
+   - Processes the virtual keyboard created by interception-tools
+   - Handles Alt+bracket remappings (no Caps Lock processing)
+   - Alt+Shift+bracket → Ctrl+PageUp/Down (tab switching globally)
+   - Alt+bracket → Alt+Left/Right (browser navigation via keyd-application-mapper)
+
+3. **XKB Configuration** (`.config/hypr/input.conf`):
    - `kb_options = lv3:caps_switch` maps Caps Lock to ISO_Level3_Shift
    - ISO_Level3_Shift conventionally maps to MOD5 in XKB
    - Result: Holding Caps Lock = MOD5 for Hyprland bindings
 
-This setup provides:
-- Dual-function Caps Lock (Escape on tap, MOD5 on hold)
-- Alt+Shift+bracket tab switching (handled by keyd globally)
-- Alt+bracket browser navigation (handled by keyd-application-mapper for Chromium apps)
-- Direct MOD5 access for all window management keybindings in `bindings-custom.conf`
+This chain approach avoids conflicts:
+- Each tool processes a different device (no competition for the same `/dev/input/eventX`)
+- interception-tools handles Caps Lock exclusively
+- keyd handles Alt+bracket combinations on the already-processed stream
 
 Note: While called "hyper" colloquially for its similar purpose to the historical Hyper modifier key, this is technically the MOD5 modifier in X11/XKB.
 

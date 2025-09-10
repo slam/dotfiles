@@ -2,10 +2,12 @@ packages:
   arch:
     pacman:
       - "discord"
+      - "interception-tools"
       - "keyd"
       - "seahorse"
       - "tailscale"
     aur:
+      - "interception-dual-function-keys"
       - "uv"
       - "vscodium-electron-bin"
   darwin:
