@@ -44,12 +44,10 @@ fi
 if command -v intercept &> /dev/null && command -v dual-function-keys &> /dev/null; then
   echo "Setting up interception-tools..."
   
-  # Create configs in /etc/interception if they don't exist
-  if [ ! -f /etc/interception/dual-function-keys.yaml ]; then
-    sudo mkdir -p /etc/interception
-    
-    # Create dual-function-keys config
-    sudo tee /etc/interception/dual-function-keys.yaml > /dev/null << 'EOF'
+  sudo mkdir -p /etc/interception
+
+  # Create dual-function-keys config
+  sudo tee /etc/interception/dual-function-keys.yaml > /dev/null << 'EOF'
 TIMING:
   TAP_MILLISEC: 200
   DOUBLE_TAP_MILLISEC: 0
@@ -59,19 +57,17 @@ MAPPINGS:
     TAP: KEY_ESC
     HOLD: KEY_CAPSLOCK  # Acts as MOD5 in Hyprland with lv3:caps_switch
 EOF
-    
-    # Create udevmon config - only process the physical AT keyboard
+
+    # Create udevmon config
     sudo tee /etc/interception/udevmon.yaml > /dev/null << 'EOF'
 - JOB: intercept -g $DEVNODE | dual-function-keys -c /etc/interception/dual-function-keys.yaml | uinput -d $DEVNODE
   DEVICE:
-    NAME: "AT Translated Set 2 keyboard"
     EVENTS:
       EV_KEY: [KEY_CAPSLOCK]
 EOF
-    
-    echo "Created interception-tools configs"
-  fi
-  
+
+  echo "Created interception-tools configs"
+
   # Enable udevmon service if not already enabled
   if ! systemctl is-enabled udevmon &> /dev/null; then
     sudo systemctl enable --now udevmon
@@ -89,8 +85,10 @@ if command -v keyd &> /dev/null; then
   sudo mkdir -p /etc/keyd
   sudo tee /etc/keyd/default.conf > /dev/null << 'EOF'
 [ids]
-# Match all keyboards (interception-tools creates a virtual keyboard that keyd will process)
+# Match all keyboards except event3 (physical AT keyboard handled by interception-tools)
+# The virtual keyboard from interception-tools will have a different event number
 *
+-/dev/input/event3
 
 [main]
 # Global Alt+Shift+bracket for tab switching (works everywhere)
@@ -103,13 +101,29 @@ if command -v keyd &> /dev/null; then
 EOF
   
   echo "Updated keyd config"
-  
+
+  # Create systemd drop-in to ensure keyd starts after udevmon
+  sudo mkdir -p /etc/systemd/system/keyd.service.d
+  sudo tee /etc/systemd/system/keyd.service.d/10-after-udevmon.conf > /dev/null << 'EOF'
+[Unit]
+# Ensure udevmon starts before keyd
+After=udevmon.service
+# Also restart keyd if udevmon restarts
+BindsTo=udevmon.service
+
+[Service]
+# Add a small delay to ensure udevmon fully initializes
+ExecStartPre=/bin/sleep 2
+EOF
+
   # Enable keyd service if not already enabled
   if ! systemctl is-enabled keyd &> /dev/null; then
     sudo systemctl enable --now keyd
     echo "keyd service enabled and started"
   else
-    # Reload to apply any config changes
+    # Reload systemd to pick up drop-in changes
+    sudo systemctl daemon-reload
+    # Reload keyd config
     sudo keyd reload
     echo "keyd config reloaded"
   fi
