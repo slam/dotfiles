@@ -34,17 +34,12 @@ default-root-container-layout = 'tiles'
 #               tall monitor (anything higher than wide) gets vertical orientation
 default-root-container-orientation = 'auto'
 
-# You can effectively turn off macOS "Hide application" (cmd-h) feature by toggling this flag
-# Useful if you don't use this macOS feature, but accidentally hit cmd-h or cmd-alt-h key
-# Also see: https://nikitabobko.github.io/AeroSpace/goodies#disable-hide-app
-automatically-unhide-macos-hidden-apps = true
-
 gaps.inner.horizontal = 2
 gaps.inner.vertical =   2
-gaps.outer.left =       2
-gaps.outer.bottom =     2
-gaps.outer.top =        2
-gaps.outer.right =      2
+gaps.outer.left =       4
+gaps.outer.bottom =     4
+gaps.outer.top =        4
+gaps.outer.right =      4
 
 # Layout of root containers of non-empty workspaces. The layout is applied only on startup
 # Possible values: smart|tiles|accordion
