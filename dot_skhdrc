@@ -66,5 +66,35 @@ ralt + rctrl + rshift + lshift - q : aerospace move-node-to-workspace Q
 ralt + rctrl + rshift + lshift - w : aerospace move-node-to-workspace W
 ralt + rctrl + rshift + lshift - e : aerospace move-node-to-workspace E
 
+# Match omarchy keybindings to build muscle memory
+lalt - o : aerospace workspace-back-and-forth
+lalt - 1 : aerospace workspace 1
+lalt - 2 : aerospace workspace 2
+lalt - 3 : aerospace workspace 3
+lalt - 4 : aerospace workspace 4
+lalt - 5 : aerospace workspace 5
+lalt - 6 : aerospace workspace 6
+lalt - 7 : aerospace workspace 7
+lalt - 8 : aerospace workspace 8
+lalt - 9 : aerospace workspace 9
+lalt - 0 : aerospace workspace A
+lalt - q : aerospace workspace Q
+lalt - w : aerospace workspace W
+lalt - e : aerospace workspace E
+
+lalt + lshift - 1 : aerospace move-node-to-workspace 1
+lalt + lshift - 2 : aerospace move-node-to-workspace 2
+lalt + lshift - 3 : aerospace move-node-to-workspace 3
+lalt + lshift - 4 : aerospace move-node-to-workspace 4
+lalt + lshift - 5 : aerospace move-node-to-workspace 5
+lalt + lshift - 6 : aerospace move-node-to-workspace 6
+lalt + lshift - 7 : aerospace move-node-to-workspace 7
+lalt + lshift - 8 : aerospace move-node-to-workspace 8
+lalt + lshift - 9 : aerospace move-node-to-workspace 9
+lalt + lshift - 0 : aerospace move-node-to-workspace A
+lalt + lshift - q : aerospace move-node-to-workspace Q
+lalt + lshift - w : aerospace move-node-to-workspace W
+lalt + lshift - e : aerospace move-node-to-workspace E
+
 ralt + rctrl + rshift + lshift - x : aerospace enable toggle
 ralt + rctrl + rshift + lshift - r : aerospace reload-config
