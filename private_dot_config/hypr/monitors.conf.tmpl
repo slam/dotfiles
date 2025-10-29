@@ -26,3 +26,11 @@ monitor=,preferred,auto,1.25
 # Example for Framework 13 w/ 6K XDR Apple display
 # monitor = DP-5, 6016x3384@60, auto, 2
 # monitor = eDP-1, 2880x1920@120, auto, 2
+
+{{ if eq .chezmoi.hostname "x1" -}}
+# Specific monitor overrides for dual display
+monitor = HDMI-A-1,preferred,auto,1.5
+monitor = eDP-1,preferred,auto-center-left,2.0
+
+workspace = 1, monitor:eDP-1,persistent:true
+{{- end }}
