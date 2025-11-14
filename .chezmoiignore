@@ -28,6 +28,9 @@ Library
 {{ if or (ne .chezmoi.os "linux") (ne .chezmoi.osRelease.id "arch") -}}
 install-packages-arch.sh
 
+# VS Code configuration (Linux only)
+.vscode
+
 # Wayland/Hyprland specific configurations
 .config/hypr
 .config/waybar
